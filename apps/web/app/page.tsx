@@ -442,21 +442,21 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <a href="/" className="flex items-center gap-2" aria-label="EcoTriage Home">
-              <svg className="h-7 w-7 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="h-7 w-7 text-[#15261F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4m12 4l-3 3m0 0l-3-3m3 3V4" />
               </svg>
               <span className="text-xl font-bold tracking-tight text-text-on-bg">EcoTriage</span>
             </a>
 
             <nav className="hidden md:flex items-center gap-1">
-              <a href="#workbench" className="px-3 py-2 rounded-lg text-sm font-medium text-text-on-bg-muted hover:text-text-on-bg hover:bg-bg-main-alt transition-colors">Workbench</a>
-              <a href="#samples" className="px-3 py-2 rounded-lg text-sm font-medium text-text-on-bg-muted hover:text-text-on-bg hover:bg-bg-main-alt transition-colors">Samples</a>
-              <a href="#recyclers" className="px-3 py-2 rounded-lg text-sm font-medium text-text-on-bg-muted hover:text-text-on-bg hover:bg-bg-main-alt transition-colors">Recyclers</a>
+              <a href="#workbench" className="px-3 py-2 rounded-lg text-sm font-medium text-[#15261F] hover:text-[#0F2C33] hover:bg-bg-main-alt transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Workbench</a>
+              <a href="#samples" className="px-3 py-2 rounded-lg text-sm font-medium text-[#15261F] hover:text-[#0F2C33] hover:bg-bg-main-alt transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Samples</a>
+              <a href="#recyclers" className="px-3 py-2 rounded-lg text-sm font-medium text-[#15261F] hover:text-[#0F2C33] hover:bg-bg-main-alt transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Recyclers</a>
             </nav>
 
             <div className="flex items-center gap-3">
-              <button onClick={() => openAuth("history")} className="btn btn-ghost btn-sm hidden sm:inline-flex">Log In</button>
-              <button onClick={() => openAuth("history", "register")} className="btn btn-primary btn-sm">Register</button>
+              <button onClick={() => openAuth("history")} className="btn btn-ghost btn-sm hidden sm:inline-flex focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Log In</button>
+              <button onClick={() => openAuth("history", "register")} className="btn btn-primary btn-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Register</button>
             </div>
           </div>
         </div>
@@ -468,18 +468,18 @@ export default function Home() {
         <section className="relative py-12 sm:py-18 lg:py-24 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             {/* Welcome Greeting Banner */}
-            <div className={`card card-hover p-5 sm:p-7 mb-8 transition-smooth animate-slide-up hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ animationDelay: '60ms' }}>
+            <div className={`card card-hover p-5 sm:p-7 mb-8 transition-smooth animate-slide-up hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover bg-[#0F2C33] border-[#1B434C] ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ animationDelay: '60ms' }}>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-forest-deep/20 border border-forest-light/30">
-                    <svg className="h-6 w-6 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <div className="p-2.5 rounded-xl bg-teal-primary/15 border border-teal-primary/30">
+                    <svg className="h-6 w-6 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 20h12" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-base font-semibold text-text-primary">👋 Welcome to EcoTriage</p>
-                    <p className="text-text-secondary text-sm mt-0.5">AI Device Lifecycle Intelligence</p>
+                    <p className="text-base font-semibold text-white">👋 Welcome to EcoTriage</p>
+                    <p className="text-[#F4F1EA] text-sm mt-0.5">AI Device Lifecycle Intelligence</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 md:ml-auto">
@@ -487,7 +487,7 @@ export default function Home() {
                     <span className="status-dot active" aria-hidden="true" />
                     <span className="text-text-primary">AI Ready</span>
                   </span>
-                  <span className="badge badge-slate flex items-center gap-2">
+                  <span className="badge badge-teal flex items-center gap-2">
                     <span className="status-dot ready" aria-hidden="true" />
                     <span className="text-text-primary">Free Tier</span>
                   </span>
@@ -497,10 +497,10 @@ export default function Home() {
 
             {/* Headline */}
             <div className="text-center mb-10 animate-slide-up" style={{ animationDelay: '120ms' }}>
-              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-on-bg leading-tight mb-5 transition-all duration-700 ease-out ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+              <h1 className={`text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-text-on-bg leading-tight mb-5 transition-all duration-700 ease-out ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
                 Circular Hardware Intelligence
               </h1>
-              <p className={`text-lg text-text-on-bg leading-relaxed mb-8 max-w-2xl mx-auto transition-all duration-700 ease-out ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ animationDelay: '180ms' }}>
+              <p className={`text-lg text-[#15261F] leading-relaxed mb-8 max-w-2xl mx-auto transition-all duration-700 ease-out ${heroVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`} style={{ animationDelay: '180ms' }}>
                 Upload any device photo for instant component diagnosis, repair paths, or certified e-waste recovery.
               </p>
             </div>
@@ -508,12 +508,12 @@ export default function Home() {
             {/* Supported Hardware Types Grid */}
             <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10 stagger-fade-in animate-slide-up`} style={{ animationDelay: '240ms' }}>
               {FEATURES.map((feature, i) => (
-                <div key={feature.title} className="card card-interactive p-6 text-center group transition-smooth h-auto flex flex-col hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover">
-                  <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 ${i % 3 === 0 ? "bg-forest-deep/20 group-hover:bg-forest-deep/30" : i % 3 === 1 ? "bg-slate-blue/15 group-hover:bg-slate-blue/25" : "bg-forest-mid/20 group-hover:bg-forest-mid/30"} transition-colors border border-border-card/50`}>
-                    <span className="text-text-primary">{feature.icon}</span>
+                <div key={feature.title} className="card card-interactive p-6 text-center group transition-smooth h-auto flex flex-col hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover bg-[#0F2C33] border-[#1B434C]">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl mb-4 bg-teal-primary/15 group-hover:bg-teal-primary/25 transition-colors border border-border-card/50">
+                    <span className="text-[#3A828F]">{feature.icon}</span>
                   </div>
-                  <h3 className="font-semibold text-text-primary text-lg mb-2 flex-1">{feature.title}</h3>
-                  <p className="text-xs text-text-muted leading-relaxed">{feature.desc}</p>
+                  <h3 className="font-semibold text-white text-lg mb-2 flex-1">{feature.title}</h3>
+                  <p className="text-xs text-[#F4F1EA] leading-relaxed">{feature.desc}</p>
                 </div>
               ))}
             </div>
@@ -524,7 +524,7 @@ export default function Home() {
         <section id="workbench" className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             {/* Upload Workspace Card */}
-            <div className="card p-6 sm:p-8 lg:p-10 animate-slide-up transition-smooth hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover" style={{ animationDelay: '300ms' }}>
+            <div className="card p-6 sm:p-8 lg:p-10 animate-slide-up transition-smooth hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover" style={{ animationDelay: '300ms' }}>
               {imagePreview || previewData ? (
                 /* ── Preview / Results State ── */
                 <Fragment>
@@ -534,8 +534,8 @@ export default function Home() {
                       {/* Device Header */}
                       <div className="flex items-start justify-between gap-3 p-4 card-alt rounded-lg border border-border-card">
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-base font-semibold text-text-primary truncate">{previewData.device}</h3>
-                          <p className="text-sm text-text-secondary mt-0.5">{previewData.condition}</p>
+                          <h3 className="text-base font-medium text-text-primary truncate">{previewData.device}</h3>
+                          <p className="text-sm text-[#F4F1EA] mt-0.5">{previewData.condition}</p>
                         </div>
                         <div className="flex items-center gap-3">
                           <div className="text-right">
@@ -554,7 +554,7 @@ export default function Home() {
 
                       {/* Components Grid */}
                       <div>
-                        <h4 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2.5">Salvageable Components</h4>
+                        <h4 className="text-xs font-medium text-[#F4F1EA] uppercase tracking-wider mb-2.5">Salvageable Components</h4>
                         <div className="grid sm:grid-cols-2 gap-2.5">
                           {previewData.components.map((comp, i) => {
                             const badge = getStatusBadge(comp.status);
@@ -573,8 +573,8 @@ export default function Home() {
                       {/* Recyclers */}
                       <div className="flex items-center justify-between p-3.5 card-alt rounded-lg border border-border-card">
                         <div className="flex items-center gap-2.5">
-                          <div className="p-2 rounded-lg bg-forest-deep/20 border border-forest-light/30">
-                            <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <div className="p-2 rounded-lg bg-teal-primary/15 border border-teal-primary/30">
+                            <svg className="h-4 w-4 text-[#0F2C33]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
@@ -588,7 +588,7 @@ export default function Home() {
                       </div>
 
                       {/* Save History CTA */}
-                      <button onClick={() => openAuth("history")} className="btn btn-outline w-full">
+                      <button onClick={() => openAuth("history")} className="btn btn-outline w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
@@ -604,13 +604,13 @@ export default function Home() {
                       </div>
 
                       <div className="flex items-center justify-between gap-3 mb-4">
-                        <button onClick={handleRetake} className="btn btn-secondary flex-1" aria-label="Choose a different photo">
+                        <button onClick={handleRetake} className="btn btn-secondary flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main" aria-label="Choose a different photo">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                           </svg>
                           Change Photo
                         </button>
-                        <button onClick={handleAnalyze} disabled={isAnalyzing} className="btn btn-primary flex-1 btn-lg" aria-busy={isAnalyzing}>
+                        <button onClick={handleAnalyze} disabled={isAnalyzing} className="btn btn-primary flex-1 btn-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main" aria-busy={isAnalyzing}>
                           {isAnalyzing ? (
                             <>
                               <svg className="h-5 w-5 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
@@ -677,14 +677,14 @@ export default function Home() {
 
                       {/* Dual Action Buttons */}
                       <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 mb-7">
-                        <label htmlFor="file-upload" className="btn btn-secondary w-full sm:w-auto">
+                        <label htmlFor="file-upload" className="btn btn-secondary w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
                           Browse Files
                         </label>
-                        <button onClick={handleCameraClick} className="btn btn-outline w-full sm:w-auto" aria-label="Take photo with camera">
+                        <button onClick={handleCameraClick} className="btn btn-outline w-full sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main" aria-label="Take photo with camera">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -716,15 +716,15 @@ export default function Home() {
             {/* Trust Indicators */}
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-sm text-text-on-bg-muted">
               <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <svg className="h-4 w-4 text-[#15261F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 Free & instant
               </span>
               <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                <svg className="h-4 w-4 text-[#15261F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                 Private by default
               </span>
               <span className="flex items-center gap-1.5">
-                <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2H11a2.5 2.5 0 002.5-2.5V3.935M8 3.935V5.5A2.5 2.5 0 0110.5 3h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2H11A2.5 2.5 0 008 3.935z" /></svg>
+                <svg className="h-4 w-4 text-[#15261F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2H11a2.5 2.5 0 002.5-2.5V3.935M8 3.935V5.5A2.5 2.5 0 0110.5 3h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2H11A2.5 2.5 0 008 3.935z" /></svg>
                 Certified partners
               </span>
             </div>
@@ -732,11 +732,11 @@ export default function Home() {
         </section>
 
         {/* Interactive Demo Preview Section */}
-        <section id="samples" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 card-alt border-y border-border-card">
+        <section id="samples" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 bg-[#EAE6DF] border-y border-[#1B434C]">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 animate-slide-up">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-2">Quick Demo</h2>
-              <p className="text-text-secondary">Click a sample below to see a live diagnostic preview — no upload needed.</p>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#15261F] mb-2">Quick Demo</h2>
+              <p className="text-[#15261F]">Click a sample below to see a live diagnostic preview — no upload needed.</p>
             </div>
 
             {/* Sample Cards */}
@@ -745,20 +745,20 @@ export default function Home() {
                 <button
                   key={sample.key}
                   onClick={() => handleSampleClick(sample)}
-                  className={`card card-interactive p-5 relative transition-smooth h-auto hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover ${selectedSample === sample.key ? "sample-card-selected" : ""}`}
+                  className={`card card-interactive p-5 relative transition-smooth h-auto hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main bg-[#0F2C33] border-[#1B434C] ${selectedSample === sample.key ? "sample-card-selected ring-2 ring-[#3A828F]" : ""}`}
                   aria-pressed={selectedSample === sample.key}
                 >
                   <div className="flex items-center gap-3 mb-3.5">
-                    <div className={`p-3 rounded-xl ${selectedSample === sample.key ? "bg-slate-blue/15 border border-slate-blue/30" : "bg-bg-main border border-border-card"} transition-colors`}>
-                      <span className="icon-on-card">{sample.icon}</span>
+                    <div className={`p-3 rounded-xl ${selectedSample === sample.key ? "bg-teal-primary/20 border border-teal-primary/40" : "bg-teal-primary/10 border border-teal-primary/20"} transition-colors`}>
+                      <span className="text-[#3A828F]">{sample.icon}</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-text-primary truncate">{sample.label}</h3>
-                      <p className="text-sm text-text-secondary leading-relaxed truncate">{sample.description}</p>
+                      <h3 className="font-semibold text-white truncate">{sample.label}</h3>
+                      <p className="text-sm text-[#F4F1EA] leading-relaxed truncate">{sample.description}</p>
                     </div>
                   </div>
                   {selectedSample === sample.key && (
-                    <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-slate-blue text-text-primary animate-scale-in">
+                    <div className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-teal-primary text-white animate-scale-in">
                       <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
@@ -769,25 +769,25 @@ export default function Home() {
             </div>
 
             {/* Live Preview Area */}
-            <div className="rounded-xl border border-border-card card overflow-hidden animate-slide-up-sm">
+            <div className="rounded-xl border border-[#1B434C] bg-[#0F2C33] overflow-hidden animate-slide-up-sm">
               {previewData ? (
                 <div className="p-6 sm:p-8 space-y-6">
                   {/* Device Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 p-4 card-alt rounded-lg border border-border-card">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 p-4 bg-[#13353E] rounded-lg border border-[#1B434C]">
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-base font-semibold text-text-primary truncate">{previewData.device}</h3>
-                      <p className="text-sm text-text-secondary mt-0.5">{previewData.condition}</p>
+                      <h3 className="text-base font-medium text-white truncate">{previewData.device}</h3>
+                      <p className="text-sm text-[#F4F1EA] mt-0.5">{previewData.condition}</p>
                     </div>
                     <div className="flex items-center gap-3 sm:ml-auto">
                       <div className="text-right">
                         <div className={`text-2xl font-bold ${getConditionColor(previewData.repairabilityScore)}`}>
                           {previewData.repairabilityScore}%
                         </div>
-                        <div className="text-xs text-text-muted">{getConditionLabel(previewData.repairabilityScore)}</div>
+                        <div className="text-xs text-[#F4F1EA]">{getConditionLabel(previewData.repairabilityScore)}</div>
                       </div>
                       <div className="w-px h-8 bg-border-card sm:w-px sm:h-auto" aria-hidden="true" />
                       <button onClick={() => { setSelectedSample(null); setPreviewData(null); }} className="btn btn-ghost btn-icon p-1.5" aria-label="Close preview">
-                        <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg className="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
@@ -796,14 +796,14 @@ export default function Home() {
 
                   {/* Components Grid */}
                   <div>
-                    <h4 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2.5">Component Assessment</h4>
+                    <h4 className="text-xs font-medium text-[#F4F1EA] uppercase tracking-wider mb-2.5">Component Assessment</h4>
                     <div className="grid sm:grid-cols-2 gap-2.5 stagger-fade-in">
                       {previewData.components.map((comp, i) => {
                         const badge = getStatusBadge(comp.status);
                         return (
                           <div key={i} className={`flex items-center gap-2.5 p-2.5 rounded-lg border ${badge.bg} ${badge.border}`}>
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-text-primary truncate">{comp.name}</p>
+                              <p className="text-sm font-medium text-white truncate">{comp.name}</p>
                               <p className={`text-xs ${badge.text}`}>{badge.label} {comp.salvageable ? "· Salvageable" : "· Not salvageable"}</p>
                             </div>
                           </div>
@@ -813,22 +813,22 @@ export default function Home() {
                   </div>
 
                   {/* Recyclers + Save */}
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3.5 card-alt rounded-lg border border-border-card">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3.5 bg-[#13353E] rounded-lg border border-[#1B434C]">
                     <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-lg bg-forest-deep/20 border border-forest-light/30">
-                        <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <div className="p-2 rounded-lg bg-teal-primary/15 border border-teal-primary/30">
+                        <svg className="h-4 w-4 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-text-primary">{previewData.recyclersNearby} certified recyclers nearby</p>
-                        <p className="text-xs text-text-muted">R2v3 & e-Stewards certified</p>
+                        <p className="text-sm font-medium text-white">{previewData.recyclersNearby} certified recyclers nearby</p>
+                        <p className="text-xs text-[#F4F1EA]">R2v3 & e-Stewards certified</p>
                       </div>
                     </div>
                     <div className="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
                       <button className="btn btn-outline" disabled>Connect Recyclers</button>
-                      <button onClick={() => openAuth("history")} className="btn btn-primary">
+                      <button onClick={() => openAuth("history")} className="btn btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">
                         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
@@ -839,10 +839,10 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="py-12 px-6 text-center">
-                  <svg className="mx-auto mb-3 h-10 w-10 icon-on-card-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="mx-auto mb-3 h-10 w-10 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <p className="text-text-muted">Select a sample above to see a live diagnostic preview</p>
+                  <p className="text-[#F4F1EA]">Select a sample above to see a live diagnostic preview</p>
                 </div>
               )}
             </div>
@@ -853,26 +853,26 @@ export default function Home() {
         <section className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12 animate-slide-up">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-on-bg mb-3">How It Works</h2>
-              <p className="text-text-on-bg-muted">Three steps from photo to circular outcome.</p>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#15261F] mb-3">How It Works</h2>
+              <p className="text-[#15261F]">Three steps from photo to circular outcome.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-4 stagger-fade-in">
               {[
                 { num: "01", title: "Upload Photo", desc: "Drag & drop, browse, or use your camera. We accept JPEG, PNG, WebP, and HEIC up to 10MB.", icon: (
-                  <svg className="h-6 w-6 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                  <svg className="h-6 w-6 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                 )},
                 { num: "02", title: "AI Diagnosis", desc: "Our multimodal model identifies the device, detects damage, scores repairability, and inventories salvageable parts.", icon: (
-                  <svg className="h-6 w-6 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.734-.988-2.386l-.548-.547z" /></svg>
+                  <svg className="h-6 w-6 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.734-.988-2.386l-.548-.547z" /></svg>
                 )},
                 { num: "03", title: "Get Results", desc: "Receive a repair guide, upcycling ideas, and a map of R2/e-Stewards certified recyclers near you.", icon: (
-                  <svg className="h-6 w-6 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182L13.536 4.182a.996.996 0 00-1.413.001L7.389 9.015c-1.171.879-1.171 2.303 0 3.182z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                  <svg className="h-6 w-6 text-[#3A828F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182L13.536 4.182a.996.996 0 00-1.413.001L7.389 9.015c-1.171.879-1.171 2.303 0 3.182z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                 )}
               ].map((step, i) => (
-                <div key={i} className="card card-interactive p-6 relative overflow-hidden transition-smooth group h-auto hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover">
-                  <div className="absolute top-4 right-4 text-text-primary font-mono text-xl font-bold opacity-15 step-badge">{step.num}</div>
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-forest-deep/20 border border-forest-light/30 mb-4 group-hover:bg-forest-deep/30 group-hover:border-forest-light/50 transition-colors">{step.icon}</div>
-                  <h3 className="text-base font-semibold text-text-primary mb-2">{step.title}</h3>
-                  <p className="text-text-secondary text-sm leading-relaxed">{step.desc}</p>
+                <div key={i} className="card card-interactive p-6 relative overflow-hidden transition-smooth group h-auto hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover bg-[#0F2C33] border-[#1B434C]">
+                  <div className="absolute top-4 right-4 text-white font-mono text-xl font-semibold step-badge">{step.num}</div>
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-teal-primary/15 border border-teal-primary/30 mb-4 group-hover:bg-teal-primary/25 group-hover:border-teal-primary/50 transition-colors">{step.icon}</div>
+                  <h3 className="text-base font-semibold text-white mb-2">{step.title}</h3>
+                  <p className="text-[#F4F1EA] text-sm leading-relaxed">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -880,35 +880,35 @@ export default function Home() {
         </section>
 
         {/* Recyclers */}
-        <section id="recyclers" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 card-alt border-y border-border-card">
+        <section id="recyclers" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 bg-[#EAE6DF] border-y border-[#1B434C]">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 animate-slide-up">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-3">Certified Recycling Partners</h2>
-              <p className="text-text-secondary">We connect you with R2v3 and e-Stewards certified facilities for responsible end-of-life processing.</p>
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-[#15261F] mb-3">Certified Recycling Partners</h2>
+              <p className="text-[#15261F]">We connect you with R2v3 and e-Stewards certified facilities for responsible end-of-life processing.</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 stagger-fade-in">
               {["ERI", "Sims Lifecycle Services", "Call2Recycle", "Dynamic Lifecycle Innovations", "Cohen Recycling", "CompuCycle", "TechDump", "e-Stewards Network", "R2 Certified Facilities"].map((p, i) => (
-                <div key={i} className="card card-interactive p-4 flex items-center justify-between group transition-smooth h-auto hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover">
-                  <span className="font-medium text-text-primary group-hover:text-slate-blue transition-colors">{p}</span>
-                  <svg className="h-4 w-4 icon-on-card-muted group-hover:icon-on-card transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                <div key={i} className="card card-interactive p-4 flex items-center justify-between group transition-smooth h-auto hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover bg-[#0F2C33] border-[#1B434C]">
+                  <span className="font-medium text-white group-hover:text-teal-primary transition-colors">{p}</span>
+                  <svg className="h-4 w-4 text-[#3A828F] group-hover:text-teal-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                 </div>
               ))}
             </div>
-            <p className="mt-6 text-center text-sm text-text-on-bg-muted">Sign in to message partners directly and schedule drop-offs or pickups.</p>
+            <p className="mt-6 text-center text-sm text-[#15261F]">Sign in to message partners directly and schedule drop-offs or pickups.</p>
           </div>
         </section>
 
         {/* CTA */}
         <section className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <div className="card p-6 sm:p-10 lg:p-14 relative overflow-hidden border-border-card animate-slide-up hover:-translate-y-1.5 hover:border-slate-blue/50 hover:shadow-card-hover transition-smooth">
-              <div className="absolute top-0 right-0 w-56 h-56 bg-forest-deep/10 rounded-full blur-3xl" aria-hidden="true"></div>
+            <div className="card p-6 sm:p-10 lg:p-14 relative overflow-hidden border-border-card animate-slide-up hover:-translate-y-1.5 hover:border-teal-primary/50 hover:shadow-card-hover transition-smooth bg-[#0F2C33] border-[#1B434C]">
+              <div className="absolute top-0 right-0 w-56 h-56 bg-teal-primary/10 rounded-full blur-3xl" aria-hidden="true"></div>
               <div className="relative">
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-text-primary mb-3">Ready to Diagnose Your Hardware?</h2>
-                <p className="text-text-secondary mb-7">Upload a photo above or try a sample. Sign up to save history and connect with certified recyclers.</p>
+                <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white mb-3">Ready to Diagnose Your Hardware?</h2>
+                <p className="text-[#F4F1EA] mb-7">Upload a photo above or try a sample. Sign up to save history and connect with certified recyclers.</p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
-                  <a href="#workbench" className="btn btn-primary btn-lg">Analyze a Device</a>
-                  <button onClick={() => openAuth("history", "register")} className="btn btn-outline btn-lg">Create Free Account</button>
+                  <a href="#workbench" className="btn btn-primary btn-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Analyze a Device</a>
+                  <button onClick={() => openAuth("history", "register")} className="btn btn-outline btn-lg border-2 border-white text-white hover:bg-white/10 font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Create Free Account</button>
                 </div>
               </div>
             </div>
@@ -916,15 +916,15 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-border-card card-alt py-8 px-4 sm:px-6 lg:px-8">
+        <footer className="border-t border-[#1B434C] bg-[#EAE6DF] py-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <svg className="h-6 w-6 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4m12 4l-3 3m0 0l-3-3m3 3V4" /></svg>
-              <span className="text-lg font-bold text-text-primary">EcoTriage</span>
+              <svg className="h-6 w-6 text-[#15261F]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4m12 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+              <span className="text-lg font-semibold text-[#15261F]">EcoTriage</span>
             </div>
-            <p className="text-sm text-text-muted text-center md:text-left">© 2026 EcoTriage. MIT Licensed. Built for hackathons.</p>
+            <p className="text-sm text-[#15261F] text-center md:text-left">© 2026 EcoTriage. MIT Licensed. Built for hackathons.</p>
             <div className="flex items-center gap-5">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="icon-on-card-muted hover:icon-on-card transition-colors" aria-label="GitHub"><svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg></a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-[#15261F] hover:text-[#0F2C33] transition-colors" aria-label="GitHub"><svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg></a>
             </div>
           </div>
         </footer>
@@ -938,15 +938,15 @@ export default function Home() {
               <h3 id="camera-title" className="font-semibold text-text-primary">Camera Capture</h3>
               <button onClick={stopCamera} className="btn btn-ghost btn-icon p-1" aria-label="Close camera"><svg className="h-5 w-5 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg></button>
             </div>
-            {cameraError && <div className="m-4 p-3 rounded-lg bg-forest-deep/20 border border-forest-light/30 text-text-secondary text-sm">{cameraError}</div>}
+            {cameraError && <div className="m-4 p-3 rounded-lg bg-teal-primary/15 border border-teal-primary/30 text-text-secondary text-sm">{cameraError}</div>}
             <div className="relative aspect-[4/3] bg-bg-main m-4 rounded-lg overflow-hidden">
               <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover" aria-label="Camera preview" />
               <canvas ref={canvasRef} className="hidden" aria-hidden="true" />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none"><div className="w-3/4 aspect-square border-2 border-slate-blue/40 rounded-lg" aria-hidden="true" /></div>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none"><div className="w-3/4 aspect-square border-2 border-teal-primary/40 rounded-lg" aria-hidden="true" /></div>
             </div>
             <div className="border-t border-border-card-strong px-4 py-3 flex justify-end gap-2.5">
-              <button onClick={stopCamera} className="btn btn-secondary">Cancel</button>
-              <button onClick={handleTakePhoto} className="btn btn-primary"><svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#15261F" /></svg> Capture</button>
+              <button onClick={stopCamera} className="btn btn-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Cancel</button>
+              <button onClick={handleTakePhoto} className="btn btn-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"><svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="5" fill="#0F2C33" /></svg> Capture</button>
             </div>
           </div>
         </div>
@@ -969,7 +969,7 @@ export default function Home() {
               <h3 id="auth-title" className="text-base font-semibold text-text-primary">
                 {authMode === "signin" ? "Sign In to EcoTriage" : "Create Your Account"}
               </h3>
-              <button onClick={closeAuth} className="btn btn-ghost btn-icon" aria-label="Close modal and continue as guest">
+              <button onClick={closeAuth} className="btn btn-ghost btn-icon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main" aria-label="Close modal and continue as guest">
                 <svg className="h-5 w-5 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -978,8 +978,8 @@ export default function Home() {
 
             <div className="max-h-[70vh] overflow-y-auto">
               <div className="border-b border-border-card-strong px-5 py-2 flex">
-                <button onClick={() => switchAuthMode("signin")} className={`flex-1 py-2 px-3 text-sm font-medium rounded-t-lg transition-colors ${authMode === "signin" ? "bg-forest-deep/20 text-text-primary border-b-2 border-forest-light" : "text-text-secondary hover:text-text-primary"}`}>Sign In</button>
-                <button onClick={() => switchAuthMode("register")} className={`flex-1 py-2 px-3 text-sm font-medium rounded-t-lg transition-colors ${authMode === "register" ? "bg-forest-deep/20 text-text-primary border-b-2 border-forest-light" : "text-text-secondary hover:text-text-primary"}`}>Register</button>
+                <button onClick={() => switchAuthMode("signin")} className={`flex-1 py-2 px-3 text-sm font-medium rounded-t-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main ${authMode === "signin" ? "bg-teal-primary/15 text-text-primary border-b-2 border-teal-primary" : "text-text-secondary hover:text-text-primary"}`}>Sign In</button>
+                <button onClick={() => switchAuthMode("register")} className={`flex-1 py-2 px-3 text-sm font-medium rounded-t-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main ${authMode === "register" ? "bg-teal-primary/15 text-text-primary border-b-2 border-teal-primary" : "text-text-secondary hover:text-text-primary"}`}>Register</button>
               </div>
 
               <div className="p-5 space-y-4">
@@ -989,7 +989,7 @@ export default function Home() {
                     type="button"
                     onClick={() => handleSocialAuth("google")}
                     disabled={isAuthLoading}
-                    className="btn btn-secondary w-full justify-center gap-2.5"
+                    className="btn btn-secondary w-full justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
                     aria-label="Continue with Google"
                   >
                     <svg className="h-4.5 w-4.5" viewBox="0 0 24 24" aria-hidden="true">
@@ -1005,7 +1005,7 @@ export default function Home() {
                     type="button"
                     onClick={() => handleSocialAuth("github")}
                     disabled={isAuthLoading}
-                    className="btn btn-secondary w-full justify-center gap-2.5"
+                    className="btn btn-secondary w-full justify-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
                     aria-label="Continue with GitHub"
                   >
                     <svg className="h-4.5 w-4.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -1028,7 +1028,7 @@ export default function Home() {
                 {/* Email/Password Form */}
                 <form onSubmit={handleAuthSubmit} className="space-y-3.5">
                   {authError && (
-                    <div className="p-2.5 rounded-lg bg-forest-deep/20 border border-forest-light/30 text-text-secondary text-sm" role="alert">
+                    <div className="p-2.5 rounded-lg bg-teal-primary/15 border border-teal-primary/30 text-text-secondary text-sm" role="alert">
                       {authError}
                     </div>
                   )}
@@ -1083,7 +1083,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={isAuthLoading}
-                    className="btn btn-primary w-full"
+                    className="btn btn-primary w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
                   >
                     {isAuthLoading ? (
                       <>
@@ -1103,7 +1103,7 @@ export default function Home() {
                 <div className="pt-1.5 text-center">
                   <button
                     onClick={closeAuth}
-                    className="btn btn-ghost text-sm"
+                    className="btn btn-ghost text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main"
                     aria-label="Continue as guest without signing in"
                   >
                     <svg className="h-4 w-4 icon-on-card" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -1119,9 +1119,9 @@ export default function Home() {
                 {/* Switch Mode Link */}
                 <div className="text-center text-sm text-text-secondary">
                   {authMode === "signin" ? (
-                    <>No account? <button onClick={() => switchAuthMode("register")} className="text-slate-blue hover:underline font-medium ml-1">Sign up</button></>
+                    <>No account? <button onClick={() => switchAuthMode("register")} className="text-teal-primary hover:underline font-medium ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Sign up</button></>
                   ) : (
-                    <>Have an account? <button onClick={() => switchAuthMode("signin")} className="text-slate-blue hover:underline font-medium ml-1">Sign in</button></>
+                    <>Have an account? <button onClick={() => switchAuthMode("signin")} className="text-teal-primary hover:underline font-medium ml-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3A828F] focus-visible:ring-offset-2 focus-visible:ring-offset-bg-main">Sign in</button></>
                   )}
                 </div>
               </div>
