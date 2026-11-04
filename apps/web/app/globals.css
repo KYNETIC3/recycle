@@ -8,44 +8,39 @@
   --bg-main-alt: #E0DCD3;          /* Slightly deeper variant for depth */
   --bg-sage-shift: #D9E2DC;        /* Soft organic sage for ambient breathe */
 
-  /* Card Surfaces: Rich glassmorphic panels - deep charcoal forest & slate */
-  --bg-card: #15261F;              /* Deep charcoal-forest - primary card surface */
-  --bg-card-alt: #1E2E2A;          /* Rich solid slate - alternative card surface */
-  --bg-card-hover: #1C3028;        /* Hover state */
-  --bg-card-elevated: #1E2E2A;     /* Elevated cards (modals, dropdowns) */
-  --bg-card-glass: rgba(21, 38, 31, 0.9);    /* Glassmorphic 90% opacity */
-  --bg-card-alt-glass: rgba(30, 46, 42, 0.9); /* Glassmorphic 90% opacity alt */
-  --border-card: #2D4A3E;          /* Crisp 1px borders for cards */
-  --border-card-strong: #3A5A4D;   /* Stronger borders for focus/active */
-  --border-slate: #3B5B73;         /* Technical Slate Blue borders for accents */
+  /* Card Surfaces: Deep Tech Teal/Spruce - rich glassmorphic panels */
+  --bg-card: #0F2C33;              /* Deep Tech Teal/Spruce - primary card surface */
+  --bg-card-alt: #13353E;          /* Slightly lighter teal-slate - alternative card surface */
+  --bg-card-hover: #163D47;        /* Hover state */
+  --bg-card-elevated: #13353E;     /* Elevated cards (modals, dropdowns) */
+  --bg-card-glass: rgba(15, 44, 51, 0.9);     /* Glassmorphic 90% opacity */
+  --bg-card-alt-glass: rgba(19, 53, 62, 0.9);  /* Glassmorphic 90% opacity alt */
+  --border-card: #1B434C;          /* Subtle lighter teal-slate borders */
+  --border-card-strong: #2D5D68;   /* Stronger teal-slate borders for focus/active */
+  --border-teal: #3A828F;          /* Vibrant cyan-teal borders for accents */
 
-  /* Technical Slate Blue - badges, step numbers, secondary outlines, active states */
-  --slate-blue: #3B5B73;
-  --slate-blue-light: #4A6D8A;
-  --slate-blue-dark: #2D4558;
-
-  /* Forest Green (Deep) - primary actions, structural elements */
-  --forest-deep: #1A3328;
-  --forest-mid: #224033;
-  --forest-light: #2D4A3E;
+  /* Vibrant Cyan-Teal - badges, step numbers, active states, hover highlights */
+  --teal-primary: #3A828F;
+  --teal-light: #4AA3AE;
+  --teal-dark: #2D6B73;
 
   /* Typography & Iconography Contrast: High-contrast pure white + bright matte bone + soft sage */
   --text-primary: #FFFFFF;         /* Pure crisp white - headings, body, badges, step numbers, Lucide icons */
   --text-secondary: #FAF8F5;       /* Bright matte bone - secondary text */
   --text-muted: #A3B8A8;           /* High-readability soft sage - secondary labels, tertiary text */
   --text-faint: #8A9B91;           /* Faint text for placeholders only */
-  --text-on-bg: #1A3328;           /* Deep forest on main background */
-  --text-on-bg-muted: #3B5B73;     /* Slate blue on main background */
+  --text-on-bg: #0F2C33;           /* Deep teal on main background */
+  --text-on-bg-muted: #3A828F;     /* Cyan-teal on main background */
 
   /* Overlay & Shadows */
-  --overlay: rgba(21, 38, 31, 0.8);
-  --overlay-slate: rgba(59, 91, 115, 0.15);
-  --shadow-sm: 0 1px 2px 0 rgba(21, 38, 31, 0.2);
-  --shadow-md: 0 4px 12px -2px rgba(21, 38, 31, 0.25);
-  --shadow-lg: 0 12px 24px -8px rgba(21, 38, 31, 0.3);
-  --shadow-xl: 0 20px 40px -12px rgba(21, 38, 31, 0.35);
-  --shadow-glow-slate: 0 0 30px -4px rgba(59, 91, 115, 0.2);
-  --shadow-card-hover: 0 16px 32px -12px rgba(21, 38, 31, 0.35), 0 4px 8px -4px rgba(21, 38, 31, 0.2);
+  --overlay: rgba(15, 44, 51, 0.8);
+  --overlay-teal: rgba(58, 130, 143, 0.15);
+  --shadow-sm: 0 1px 2px 0 rgba(15, 44, 51, 0.2);
+  --shadow-md: 0 4px 12px -2px rgba(15, 44, 51, 0.25);
+  --shadow-lg: 0 12px 24px -8px rgba(15, 44, 51, 0.3);
+  --shadow-xl: 0 20px 40px -12px rgba(15, 44, 51, 0.35);
+  --shadow-glow-teal: 0 0 30px -4px rgba(58, 130, 143, 0.2);
+  --shadow-card-hover: 0 16px 32px -12px rgba(15, 44, 51, 0.35), 0 4px 8px -4px rgba(15, 44, 51, 0.2);
 
   /* Status Colors (High Contrast) */
   --status-good: #4ADE80;
@@ -65,13 +60,10 @@
   --color-bg-card-alt-glass: var(--bg-card-alt-glass);
   --color-border-card: var(--border-card);
   --color-border-card-strong: var(--border-card-strong);
-  --color-border-slate: var(--border-slate);
-  --color-slate-blue: var(--slate-blue);
-  --color-slate-blue-light: var(--slate-blue-light);
-  --color-slate-blue-dark: var(--slate-blue-dark);
-  --color-forest-deep: var(--forest-deep);
-  --color-forest-mid: var(--forest-mid);
-  --color-forest-light: var(--forest-light);
+  --color-border-teal: var(--border-teal);
+  --color-teal-primary: var(--teal-primary);
+  --color-teal-light: var(--teal-light);
+  --color-teal-dark: var(--teal-dark);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
@@ -163,22 +155,22 @@ body {
 }
 
 .btn-primary {
-  background: var(--forest-deep);
-  border-color: var(--forest-light);
+  background: var(--bg-card);
+  border-color: var(--border-card-strong);
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--forest-mid);
-  border-color: var(--forest-light);
+  background: var(--bg-card-hover);
+  border-color: var(--border-teal);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
 .btn-primary:active:not(:disabled) {
   transform: translateY(0) scale(0.98);
-  background: var(--forest-deep);
+  background: var(--bg-card);
 }
 
 .btn-secondary {
@@ -208,33 +200,33 @@ body {
 
 .btn-outline {
   background: transparent;
-  border-color: var(--slate-blue);
-  color: var(--slate-blue);
+  border-color: var(--teal-primary);
+  color: var(--teal-primary);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background: rgba(59, 91, 115, 0.1);
-  border-color: var(--slate-blue-light);
-  color: var(--slate-blue-light);
+  background: rgba(58, 130, 143, 0.1);
+  border-color: var(--teal-light);
+  color: var(--teal-light);
 }
 
-.btn-slate {
-  background: var(--slate-blue);
-  border-color: var(--slate-blue);
+.btn-teal {
+  background: var(--teal-primary);
+  border-color: var(--teal-primary);
   color: var(--text-primary);
   box-shadow: var(--shadow-sm);
 }
 
-.btn-slate:hover:not(:disabled) {
-  background: var(--slate-blue-light);
-  border-color: var(--slate-blue-light);
+.btn-teal:hover:not(:disabled) {
+  background: var(--teal-light);
+  border-color: var(--teal-light);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
 
-.btn-slate:active:not(:disabled) {
+.btn-teal:active:not(:disabled) {
   transform: translateY(0) scale(0.98);
-  background: var(--slate-blue-dark);
+  background: var(--teal-dark);
 }
 
 .btn-icon {
@@ -327,16 +319,16 @@ body {
   border: 1px solid;
 }
 
-.badge-slate {
-  background: rgba(59, 91, 115, 0.15);
+.badge-teal {
+  background: rgba(58, 130, 143, 0.15);
   color: var(--text-primary);
-  border-color: var(--slate-blue);
+  border-color: var(--teal-primary);
 }
 
 .badge-forest {
-  background: rgba(26, 51, 40, 0.2);
+  background: rgba(15, 44, 51, 0.2);
   color: var(--text-primary);
-  border-color: var(--forest-light);
+  border-color: var(--border-card-strong);
 }
 
 .badge-subtle {
@@ -387,16 +379,16 @@ body {
 
 .drop-zone:hover,
 .drop-zone.active {
-  border-color: var(--slate-blue);
+  border-color: var(--teal-primary);
   border-style: solid;
-  background: rgba(59, 91, 115, 0.08);
+  background: rgba(58, 130, 143, 0.08);
 }
 
 .drop-zone.drag-active {
-  border-color: var(--slate-blue);
+  border-color: var(--teal-primary);
   border-style: solid;
-  background: rgba(59, 91, 115, 0.12);
-  box-shadow: var(--shadow-glow-slate);
+  background: rgba(58, 130, 143, 0.12);
+  box-shadow: var(--shadow-glow-teal);
 }
 
 /* ===== Camera Shutter Flash ===== */
@@ -518,9 +510,9 @@ body {
 
 /* ===== Sample Card Selected State ===== */
 .sample-card-selected {
-  border-color: var(--slate-blue);
-  box-shadow: 0 0 0 1px var(--slate-blue), var(--shadow-md);
-  background: rgba(59, 91, 115, 0.08);
+  border-color: var(--teal-primary);
+  box-shadow: 0 0 0 1px var(--teal-primary), var(--shadow-md);
+  background: rgba(58, 130, 143, 0.08);
 }
 
 /* ===== Preview Card ===== */
@@ -599,7 +591,7 @@ body {
 .status-dot.good { background: var(--status-good); }
 .status-dot.degraded { background: var(--status-degraded); }
 .status-dot.critical { background: var(--status-critical); }
-.status-dot.active { background: var(--slate-blue); }
+.status-dot.active { background: var(--teal-primary); }
 .status-dot.ready { background: var(--status-good); }
 
 /* ===== Status Color Utilities (for dynamic className usage) ===== */
@@ -621,31 +613,21 @@ body {
 .border-status-degraded\/30 { border-color: rgba(250, 204, 21, 0.3); }
 .border-status-critical\/30 { border-color: rgba(248, 113, 113, 0.3); }
 
-/* ===== Forest & Slate Opacity Utilities ===== */
-.bg-forest-deep\/10 { background: rgba(26, 51, 40, 0.1); }
-.bg-forest-deep\/15 { background: rgba(26, 51, 40, 0.15); }
-.bg-forest-deep\/20 { background: rgba(26, 51, 40, 0.2); }
-.bg-forest-deep\/30 { background: rgba(26, 51, 40, 0.3); }
-.bg-forest-mid\/10 { background: rgba(34, 64, 51, 0.1); }
-.bg-forest-mid\/15 { background: rgba(34, 64, 51, 0.15); }
-.bg-forest-mid\/20 { background: rgba(34, 64, 51, 0.2); }
-.bg-forest-mid\/30 { background: rgba(34, 64, 51, 0.3); }
-.bg-forest-light\/10 { background: rgba(45, 74, 62, 0.1); }
-.bg-forest-light\/15 { background: rgba(45, 74, 62, 0.15); }
-.bg-forest-light\/20 { background: rgba(45, 74, 62, 0.2); }
-.bg-forest-light\/30 { background: rgba(45, 74, 62, 0.3); }
-.bg-forest-light\/50 { background: rgba(45, 74, 62, 0.5); }
+/* ===== Teal Opacity Utilities ===== */
+.bg-teal-primary\/10 { background: rgba(58, 130, 143, 0.1); }
+.bg-teal-primary\/15 { background: rgba(58, 130, 143, 0.15); }
+.bg-teal-primary\/20 { background: rgba(58, 130, 143, 0.2); }
+.bg-teal-primary\/25 { background: rgba(58, 130, 143, 0.25); }
+.bg-teal-primary\/30 { background: rgba(58, 130, 143, 0.3); }
 
-.bg-slate-blue\/10 { background: rgba(59, 91, 115, 0.1); }
-.bg-slate-blue\/15 { background: rgba(59, 91, 115, 0.15); }
-.bg-slate-blue\/20 { background: rgba(59, 91, 115, 0.2); }
-.bg-slate-blue\/25 { background: rgba(59, 91, 115, 0.25); }
-.bg-slate-blue\/30 { background: rgba(59, 91, 115, 0.3); }
+.border-teal-primary\/30 { border-color: rgba(58, 130, 143, 0.3); }
+.border-teal-primary\/50 { border-color: rgba(58, 130, 143, 0.5); }
 
-.border-forest-light\/30 { border-color: rgba(45, 74, 62, 0.3); }
-.border-forest-light\/50 { border-color: rgba(45, 74, 62, 0.5); }
-.border-slate-blue\/30 { border-color: rgba(59, 91, 115, 0.3); }
-.border-slate-blue\/50 { border-color: rgba(59, 91, 115, 0.5); }
+/* ===== Card Border Opacity Utilities ===== */
+.border-border-card\/30 { border-color: rgba(27, 67, 76, 0.3); }
+.border-border-card\/50 { border-color: rgba(27, 67, 76, 0.5); }
+.border-border-card-strong\/30 { border-color: rgba(45, 93, 104, 0.3); }
+.border-border-card-strong\/50 { border-color: rgba(45, 93, 104, 0.5); }
 
 /* ===== Hardware/Circuit Icons (Visual Electronics Motifs) ===== */
 .hardware-icon {
@@ -662,19 +644,19 @@ body {
   stroke-linejoin: round;
 }
 
-.hardware-icon-slate {
-  stroke: var(--slate-blue);
+.hardware-icon-teal {
+  stroke: var(--teal-primary);
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-/* ===== Step Number Badges - Technical Slate Blue ===== */
+/* ===== Step Number Badges - Vibrant Cyan-Teal ===== */
 .step-badge {
   font-family: var(--font-mono), monospace;
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--slate-blue);
+  color: var(--teal-primary);
   opacity: 0.9;
 }
 
@@ -688,7 +670,7 @@ body {
 }
 
 .device-preview:hover {
-  border-color: var(--slate-blue);
+  border-color: var(--teal-primary);
   box-shadow: var(--shadow-md);
 }
 
