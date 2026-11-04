@@ -15,23 +15,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EcoTriage — AI Device Diagnostics & Recycling",
+  title: "eLoop — AI Device Lifecycle Intelligence",
   description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
   keywords: ["e-waste", "recycling", "device repair", "AI diagnostics", "sustainability", "upcycling", "electronics"],
-  authors: [{ name: "EcoTriage Team" }],
-  creator: "EcoTriage",
-  publisher: "EcoTriage",
+  authors: [{ name: "eLoop Team" }],
+  creator: "eLoop",
+  publisher: "eLoop",
   robots: "index, follow",
   openGraph: {
-    title: "EcoTriage — AI Device Diagnostics & Recycling",
+    title: "eLoop — AI Device Lifecycle Intelligence",
     description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
     type: "website",
     locale: "en_US",
-    siteName: "EcoTriage",
+    siteName: "eLoop",
   },
   twitter: {
     card: "summary_large_image",
-    title: "EcoTriage — AI Device Diagnostics & Recycling",
+    title: "eLoop — AI Device Lifecycle Intelligence",
     description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
   },
   icons: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#064e3b",
+  themeColor: "#0F2C33",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
