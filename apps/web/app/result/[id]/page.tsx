@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { isSampleKey, SAMPLE_KEYS } from "@/lib/samples";
 import { ResultView } from "./ResultView";
 
@@ -9,8 +10,16 @@ export function generateStaticParams() {
   return SAMPLE_KEYS.map((id) => ({ id }));
 }
 
-export default async function ResultPage({ params }: { params: Promise<{ id: string }> }) {
+async function Result({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!isSampleKey(id)) notFound();
   return <ResultView sampleKey={id} />;
+}
+
+export default function ResultPage({ params }: { params: Promise<{ id: string }> }) {
+  return (
+    <Suspense>
+      <Result params={params} />
+    </Suspense>
+  );
 }
