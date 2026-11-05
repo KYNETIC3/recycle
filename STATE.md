@@ -4,9 +4,21 @@
 An AI-powered device triage platform for hackathons. Users upload device photos; AI detects fixability or provides creative recycled uses and connects users to e-waste recycling partners.
 
 ## Core Tech Stack
-- **Frontend:** Next.js 15 (App Router), Tailwind CSS, TypeScript (`apps/web`)
-- **Backend:** Python, FastAPI (`apps/api`)
+- **Frontend:** Next.js 16 (App Router, Cache Components), Tailwind CSS 4, TypeScript (`apps/web`)
+- **Backend:** Python, FastAPI (`apps/api`, not created yet)
 - **AI Vision:** Multimodal Vision API (Free tier)
+
+---
+
+## 🎨 Current Design: Design B (branch `redesign`)
+Replaces every earlier visual treatment listed under Completed Tasks. The single page is gone.
+- **Look:** clean engineering. IBM Plex Sans and Mono, 2px corners, 1px rules, no shadows. Ground `#F8F9FA`, deep green `#1B5E20`, deep blue `#1565C0` for the one main action per screen. Tokens are in `apps/web/app/globals.css`.
+- **Routes:** `/` Overview, `/assess` New assessment, `/result/[id]` Repair, Reuse or Recycle, `/recyclers`, `/history`. Save is a dialog on the result screen. Green side rail from 768px up, tab bar below that.
+- **Simulated:** `assessDevice()` in `apps/web/lib/assess.ts` is the one call to replace with the real API. Uploaded and camera photos end in a sample result, labelled as such.
+- **Placeholders:** material, mass and impact figures in `lib/samples.ts` are invented and labelled "Sample data". Route cut-offs (60 and 45) are placeholders.
+- **Saved data:** `lib/history.ts` keeps saved results in `localStorage`, one entry per sample device. The Save dialog's sign-in buttons create no account.
+- **Left out for now:** repair guide, parts-to-reuse screen, sign-in link, recycler distances and recycler detail pages, because none has anything behind it yet.
+- **To verify:** the R2v3 or e-Stewards claim on the Recyclers screen is carried over from the old page and has not been checked per partner.
 
 ---
 

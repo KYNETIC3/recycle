@@ -1,49 +1,49 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { SideNav, TabBar } from "@/components/Nav";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
+
+const description =
+  "Upload a photo of your electronic device. eLoop tells you whether to repair, reuse or recycle it, and connects you with certified e-waste recycling partners.";
 
 export const metadata: Metadata = {
-  title: "eLoop — AI Device Lifecycle Intelligence",
-  description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
-  keywords: ["e-waste", "recycling", "device repair", "AI diagnostics", "sustainability", "upcycling", "electronics"],
+  title: "eLoop: AI Device Lifecycle Intelligence",
+  description,
+  keywords: ["e-waste", "recycling", "device repair", "AI diagnostics", "sustainability", "electronics"],
   authors: [{ name: "eLoop Team" }],
   creator: "eLoop",
   publisher: "eLoop",
   robots: "index, follow",
   openGraph: {
-    title: "eLoop — AI Device Lifecycle Intelligence",
-    description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
+    title: "eLoop: AI Device Lifecycle Intelligence",
+    description,
     type: "website",
     locale: "en_US",
     siteName: "eLoop",
   },
   twitter: {
     card: "summary_large_image",
-    title: "eLoop — AI Device Lifecycle Intelligence",
-    description: "Upload a photo of your electronic device. Our AI analyzes fixability, suggests creative upcycling ideas, and connects you with certified e-waste recycling partners.",
+    title: "eLoop: AI Device Lifecycle Intelligence",
+    description,
   },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
-  manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0F2C33",
+  themeColor: "#1B5E20",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -53,16 +53,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+    <html lang="en" className={`${plexSans.variable} ${plexMono.variable} antialiased`}>
+      <body className="min-h-dvh bg-ground">
+        <div className="min-h-dvh md:flex">
+          <SideNav />
+          <div className="min-w-0 flex-1">{children}</div>
+        </div>
+        <TabBar />
       </body>
     </html>
   );
