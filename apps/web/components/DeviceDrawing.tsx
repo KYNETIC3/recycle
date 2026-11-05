@@ -1,4 +1,5 @@
 import type { SampleKey } from "@/lib/samples";
+
 function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <>
@@ -9,6 +10,7 @@ function Callout({ x, y, n }: { x: number; y: number; n: number }) {
     </>
   );
 }
+
 const LABELS: Record<SampleKey, string> = {
   iphone: "Line drawing of a phone with three numbered inspection points",
   motherboard: "Line drawing of a motherboard with three numbered inspection points",
