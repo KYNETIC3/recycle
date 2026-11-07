@@ -1,98 +1,50 @@
-# eLoop — AI Hardware Triage & E-Waste Recovery
+# eLoop Command Center
 
-eLoop is a high-contrast, clean-tech e-waste triage web application built with Next.js, React, and Tailwind CSS. It provides instant component diagnosis, repair pathways, and certified e-waste recycling routing.
+## 🚀 Quick Start & Local Setup
 
----
+Follow these steps to set up and run the project locally.
 
-## 🛠️ Prerequisites
-
-Before you start, make sure you have the following installed on your computer:
-
-1. **Node.js**: `v18.0.0` or higher ([Download Node.js](https://nodejs.org/))
-2. **Git**: Installed and configured ([Download Git](https://git-scm.com/))
-3. **Code Editor**: VS Code (recommended)
+### Prerequisites
+- **Node.js**: v18.0 or higher
+- **npm** (or pnpm)
+- **Git**
 
 ---
 
-## 🚀 Step-by-Step Local Setup
+### Installation
 
-Follow these exact steps to clone, set up, and run eLoop on your machine:
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/KYNETIC3/recycle.git
+   cd recycle
+   ```
 
-### Step 1: Open Your Terminal
-Open **Terminal** (macOS/Linux) or **Git Bash / Command Prompt** (Windows).
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### Step 2: Clone the Repository
-Navigate to the directory where you store your projects and clone the repo:
-```bash
-cd ~/Documents
-git clone https://github.com/KYNETIC3/recycle.git
-cd recycle
-```
+3. **Set up environment variables:**
+   Create a `.env.local` file inside `apps/web/` and add your Supabase keys:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-### Step 3: Install Dependencies
-Install all required package dependencies:
-```bash
-npm install
-```
+4. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
 
-### Step 4: Configure Environment Variables (If Applicable)
-If there is an `.env.example` file in the project, copy it to create your local `.env.local` file:
-```bash
-cp .env.example .env.local
-```
-*(If no environment variables are required for basic UI testing, you can skip this step).*
-
-### Step 5: Start the Development Server
-Launch the local Next.js development server:
-```bash
-npm run dev
-```
-
-### Step 6: Open the Application in Your Browser
-Once the terminal displays `Ready in ...`, open your web browser and navigate to:
-```text
-http://localhost:3000
-```
+5. **View the app:**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🎨 Design System & Accessibility Rules
+### Key Scripts
 
-When contributing to eLoop UI components, adhere to these WCAG-compliant design standards:
-
-* **Background Base:** Industrial Warm Stone (`#EAE6DF`)
-* **Card Containers:** Deep Tech-Teal (`#0F2C33`) with subtle border (`#1B434C`)
-* **Icon Accents:** High-Contrast Cyan-Teal (`#3A828F`)
-* **Typography on Dark Cards:** Pure White (`#FFFFFF`) headings, Soft Bone (`#F4F1EA`) body text
-* **Typography on Light Backgrounds:** Dark Charcoal (`#15261F`)
-
----
-
-## 🌿 Team Git Workflow (Branching Policy)
-
-To avoid breaking the `main` branch, all teammates must work on dedicated feature branches:
-
-### 1. Update your local `main` branch:
-```bash
-git checkout main
-git pull origin main
-```
-
-### 2. Create a new feature branch:
-```bash
-git checkout -b feature/your-feature-name
-```
-
-### 3. Save and commit your work:
-```bash
-git add .
-git commit -m "feat: brief description of what you built or fixed"
-```
-
-### 4. Push your branch to GitHub:
-```bash
-git push -u origin feature/your-feature-name
-```
-
-### 5. Open a Pull Request:
-Go to [https://github.com/KYNETIC3/recycle](https://github.com/KYNETIC3/recycle), click **Compare & pull request**, and assign a teammate for review!
+| Command | Action |
+|---------|--------|
+| `npm run dev` | Starts local dev server |
+| `npm run build` | Builds application for production |
+| `npm run lint` | Runs code quality checks |
