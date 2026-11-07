@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { LogoMark } from "./Logo";
+import { signOut, getSession } from "@/lib/auth/oauth";
+import { LogOut, User } from "lucide-react";
 
 const LINKS: { href: string; label: string; short: string; icon: ReactNode }[] = [
   {
@@ -50,6 +53,103 @@ function isActive(href: string, pathname: string) {
   return pathname === href;
 }
 
+function UserMenu() {
+  const [user, setUser] = useState<{ email: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const session = await getSession();
+        if (session?.user?.email) {
+          setUser({ email: session.user.email });
+        }
+      } catch {
+        // Ignore errors
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSession();
+  }, []);
+
+  const handleSignOut = async () => {
+    await signOut();
+    setUser(null);
+    window.location.href = '/';
+  };
+
+  if (loading) {
+    return (
+      <div style={{ padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '8px', color: '#81D8D0', fontSize: '13px' }}>
+        <div className="p-spin" style={{ width: '16px', height: '16px', borderWidth: '2px' }} />
+        <span>Loading...</span>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <Link
+        href="/login"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '10px 16px',
+          margin: '8px 12px',
+          backgroundColor: '#c2dbf0',
+          color: '#1e293b',
+          borderRadius: '8px',
+          fontWeight: '600',
+          fontSize: '13px',
+          textDecoration: 'none',
+          transition: 'background-color 0.15s ease',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#a8c8e8'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#c2dbf0'; }}
+      >
+        Sign In
+      </Link>
+    );
+  }
+
+  return (
+    <div style={{ padding: '0 12px 12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', backgroundColor: '#13353E', borderRadius: '8px', marginBottom: '8px' }}>
+        <User size={18} color="#81D8D0" />
+        <span style={{ color: 'white', fontSize: '13px', fontWeight: '500', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '160px' }}>
+          {user.email}
+        </span>
+      </div>
+      <button
+        onClick={handleSignOut}
+        style={{
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+          padding: '10px 12px',
+          backgroundColor: 'transparent',
+          color: '#E2E8F0',
+          border: '1px solid #1B434C',
+          borderRadius: '8px',
+          fontWeight: '500',
+          fontSize: '13px',
+          cursor: 'pointer',
+          transition: 'all 0.15s ease',
+        }}
+        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1B434C'; e.currentTarget.style.color = 'white'; }}
+        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#E2E8F0'; }}
+      >
+        <LogOut size={16} />
+        Sign Out
+      </button>
+    </div>
+  );
+}
+
 export function SideNav() {
   const pathname = usePathname();
 
@@ -81,6 +181,9 @@ export function SideNav() {
               </Link>
             );
           })}
+        </div>
+        <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid #1B434C' }}>
+          <UserMenu />
         </div>
       </nav>
     </div>

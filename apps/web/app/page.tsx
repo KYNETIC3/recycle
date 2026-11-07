@@ -2,43 +2,52 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabaseClient'
+import { createBrowserClient } from '@/lib/supabase/client'
 import { Users, FileText, ArrowRight, Sparkles, RefreshCw, ShieldCheck, Camera } from 'lucide-react'
 import Typewriter from '@/components/Typewriter'
 
 export default function DashboardOverview() {
-  const [partnerCount, setPartnerCount] = useState<number>(18)
+  const [partnerCount, setPartnerCount] = useState<number>(0)
   const [assessmentCount, setAssessmentCount] = useState<number>(0)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function fetchCounts() {
       try {
-        const { count: pCount } = await supabase.from('recycling_partners').select('*', { count: 'exact', head: true })
+        const supabase = createBrowserClient()
+        
+        const [{ count: pCount }, { count: aCount }] = await Promise.all([
+          supabase.from('recycling_partners').select('*', { count: 'exact', head: true }).eq('is_active', true),
+          supabase.from('assessments').select('*', { count: 'exact', head: true })
+        ])
+        
         if (pCount !== null) setPartnerCount(pCount)
-
-        const { count: aCount } = await supabase.from('assessments').select('*', { count: 'exact', head: true })
         if (aCount !== null) setAssessmentCount(aCount)
-      } catch (err) {
-        console.error('Error fetching dashboard counts:', err)
+      } catch (error) {
+        console.error('Error fetching dashboard counts:', error)
+        // Keep counts at 0 on any error (missing tables, connection issues, etc.)
+      } finally {
+        setIsLoading(false)
       }
     }
     fetchCounts()
   }, [])
 
-  const accent = '#d4e8fa'
-  const accentBorder = '1px solid rgba(212, 232, 250, 0.22)'
-  const accentBg = 'rgba(212, 232, 250, 0.15)'
+  const accent = '#c2dbf0'
+  const accentBorder = '1px solid rgba(194, 219, 240, 0.22)'
+  const accentBg = 'rgba(194, 219, 240, 0.15)'
+  const accentHover = 'rgba(194, 219, 240, 0.3)'
   const cardBg = '#3c454a'
   const pageBg = '#f4f0ea'
 
   const auditPhrases = [
     'Analyzing material composition...',
-    'Connecting to 18 active recycling nodes...',
+    'Connecting to active recycling nodes...',
     'Calculating device circularity index...',
   ]
 
   return (
-    <div style={{ display: 'flex', height: '100vh', backgroundColor: pageBg, fontFamily: 'sans-serif', overflowY: 'auto' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: pageBg, fontFamily: 'sans-serif', overflowY: 'auto' }}>
       
       {/* Main Content Dashboard */}
       <div style={{ flex: 1, padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
@@ -65,10 +74,10 @@ export default function DashboardOverview() {
               </div>
             </div>
             <div style={{ fontSize: '48px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-1px' }}>
-              {partnerCount}
+              {isLoading ? '—' : partnerCount}
             </div>
             <div style={{ fontSize: '16px', fontWeight: '500', color: accent, lineHeight: '1.5' }}>
-              18 certified nodes
+              {partnerCount} certified nodes
             </div>
           </div>
 
@@ -83,7 +92,7 @@ export default function DashboardOverview() {
               </div>
             </div>
             <div style={{ fontSize: '48px', fontWeight: '800', marginBottom: '10px', letterSpacing: '-1px' }}>
-              {assessmentCount}
+              {isLoading ? '—' : assessmentCount}
             </div>
             <div style={{ fontSize: '16px', fontWeight: '500', color: accent, lineHeight: '1.5' }}>
               Device lifecycle records
@@ -187,7 +196,7 @@ export default function DashboardOverview() {
               alignItems: 'center',
               gap: '10px',
               transition: 'background-color 0.2s ease',
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#a8c8e8'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = accent; }}>
+            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = accentHover; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = accent; }}>
               <Camera size={18} />
               Launch Camera
             </button>

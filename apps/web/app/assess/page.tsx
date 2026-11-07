@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { supabase } from '@/lib/supabaseClient'
+import { supabase } from '@/lib/supabase/client'
 
 const SAMPLE_DEVICES = [
   { name: 'iPhone 13 Pro', desc: 'Display shattered' },
