@@ -3,8 +3,21 @@
 import Image from "next/image";
 import { useState, FormEvent, useRef, useCallback, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
+import { useSearchParams } from "next/navigation";
+import { Camera, X, Upload, Image as ImageIcon, Loader2 } from "lucide-react";
+
+const skyBlue = '#7aa2e3';
+const skyBlueBorder = 'rgba(122, 162, 227, 0.3)';
+const skyBlueBg = 'rgba(122, 162, 227, 0.1)';
+const skyBlueHover = 'rgba(122, 162, 227, 0.2)';
+const cardBg = '#121816';
+const cardBorder = '1px solid rgba(122, 162, 227, 0.15)';
+const pageBg = '#f4f0ea';
 
 export default function AssessmentsPage() {
+  const searchParams = useSearchParams();
+  const initialAction = searchParams.get("action");
+
   const [formData, setFormData] = useState({
     deviceCategory: "",
     brand: "",
@@ -89,7 +102,6 @@ export default function AssessmentsPage() {
   }, []);
 
   const clearImage = useCallback(() => {
-    // Instead of just clearing, immediately open camera for retake
     startCamera();
   }, [startCamera]);
 
@@ -115,6 +127,13 @@ export default function AssessmentsPage() {
     e.target.value = "";
   };
 
+  // Initialize camera if action=camera query param is present
+  useEffect(() => {
+    if (initialAction === "camera") {
+      startCamera();
+    }
+  }, [initialAction, startCamera]);
+
   useEffect(() => {
     return () => {
       stopCamera();
@@ -125,19 +144,19 @@ export default function AssessmentsPage() {
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    dropZoneRef.current?.classList.add("border-[#3A828F]", "bg-[#f0f7f6]");
+    dropZoneRef.current?.classList.add("border-skyBlue", "bg-skyBlue-bg");
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    dropZoneRef.current?.classList.remove("border-[#3A828F]", "bg-[#f0f7f6]");
+    dropZoneRef.current?.classList.remove("border-skyBlue", "bg-skyBlue-bg");
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    dropZoneRef.current?.classList.remove("border-[#3A828F]", "bg-[#f0f7f6]");
+    dropZoneRef.current?.classList.remove("border-skyBlue", "bg-skyBlue-bg");
     const file = e.dataTransfer.files?.[0];
     if (file) handleFileSelect(file);
   };
@@ -216,41 +235,38 @@ export default function AssessmentsPage() {
     }
   };
 
-  // Professional button styles - no neon/glowing
-  const primaryButtonStyle = `
-    inline-flex items-center justify-center gap-2
-    px-6 py-3 rounded-lg
-    bg-[#3A828F] text-white font-semibold text-sm
-    hover:bg-[#2D6B73]
-    focus:outline-none focus:ring-2 focus:ring-[#3A828F]/30
-    transition-all duration-150
-    disabled:opacity-50 disabled:cursor-not-allowed
-    cursor-pointer
+  const inputStyle = `
+    w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8]
+    focus:border-skyBlue focus:ring-1 focus:ring-skyBlue
+    disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm
   `.trim();
 
-  const secondaryButtonStyle = `
-    inline-flex items-center justify-center gap-2
-    px-6 py-3 rounded-lg
-    bg-transparent text-[#3A828F] font-semibold text-sm
-    border-2 border-[#3A828F]
-    hover:bg-[#f0f7f6]
-    focus:outline-none focus:ring-2 focus:ring-[#3A828F]/30
-    transition-all duration-150
-    disabled:opacity-50 disabled:cursor-not-allowed
-    cursor-pointer
+  const labelStyle = "block text-sm font-medium text-[#15261F] mb-1.5";
+
+  const cardStyle = `
+    bg-white border border-[#d5dbd8] rounded-2xl p-6
   `.trim();
 
   return (
-    <div className="p-8 md:p-10 pb-24 md:pb-10 max-w-2xl mx-auto">
+    <div className="p-8 md:p-10 pb-24 md:pb-10 max-w-2xl mx-auto" style={{ 
+      '--skyBlue': skyBlue, 
+      '--skyBlue-border': skyBlueBorder, 
+      '--skyBlue-bg': skyBlueBg,
+      '--skyBlue-hover': skyBlueHover,
+      backgroundColor: pageBg 
+    }}>
       <header className="mb-6 md:mb-8">
-        <span className="p-label">Device Assessment</span>
+        <span style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '1.2px', color: skyBlue, fontWeight: '700' }}>
+          Device Assessment
+        </span>
         <h1 className="text-2xl md:text-3xl font-bold text-[#15261F] mt-1">New Assessment</h1>
       </header>
 
       {success && (
         <div
           role="status"
-          className="mb-6 p-4 bg-[#e8f5f3] border border-[#c4e0dc] rounded-xl text-[#1a5c5c] text-sm font-medium"
+          className="mb-6 p-4 rounded-xl text-sm font-medium"
+          style={{ backgroundColor: '#e8f5f3', border: '1px solid #c4e0dc', color: '#1a5c5c' }}
         >
           Assessment submitted successfully!
         </div>
@@ -259,7 +275,8 @@ export default function AssessmentsPage() {
       {error && (
         <div
           role="alert"
-          className="mb-6 p-4 bg-[#fff5f5] border border-[#ffc9c9] rounded-xl text-[#b3261e] text-sm font-medium"
+          className="mb-6 p-4 rounded-xl text-sm font-medium"
+          style={{ backgroundColor: '#fff5f5', border: '1px solid #ffc9c9', color: '#b3261e' }}
         >
           {error}
         </div>
@@ -267,19 +284,20 @@ export default function AssessmentsPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6" noValidate>
         {/* Photo Upload Section */}
-        <div className="card-elevated-light p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-[#15261F]">Device Photo</h2>
+        <div className={cardStyle} style={{ backgroundColor: '#fff', borderColor: '#d5dbd8' }}>
+          <h2 className="text-lg font-semibold text-[#15261F] mb-4">Device Photo</h2>
 
           <div
             ref={dropZoneRef}
             className={`relative flex h-[280px] items-center justify-center overflow-hidden border-2 rounded-2xl transition-all duration-200 ${
               imagePreviewUrl
                 ? "border-[#d5dbd8]"
-                : "border-[#d5dbd8] hover:border-[#3A828F]/50"
+                : "border-[#d5dbd8] hover:border-skyBlue"
             }`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
+            style={{ borderColor: isCameraActive ? skyBlue : undefined }}
           >
             {/* Hidden file inputs */}
             <input
@@ -307,53 +325,166 @@ export default function AssessmentsPage() {
                 height: '100%', 
                 display: 'flex', 
                 flexDirection: 'column', 
-                alignItems: 'center', 
-                justifyContent: 'center',
                 position: 'relative',
-                zIndex: 5
+                zIndex: 5,
+                backgroundColor: '#000',
+                borderRadius: '12px',
+                overflow: 'hidden',
               }}>
+                {/* Video feed - takes all available space */}
                 <div style={{ 
-                  position: 'relative',
-                  borderRadius: '12px',
+                  position: 'relative', 
+                  flex: 1, 
+                  width: '100%', 
+                  minHeight: 0, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
                   overflow: 'hidden',
-                  background: '#000',
-                  maxWidth: '100%',
-                  maxHeight: 'calc(100vh - 200px)'
                 }}>
+                  {/* Viewfinder overlay */}
+                  <div style={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    border: `2px solid ${skyBlue}`,
+                    borderRadius: '12px',
+                    pointerEvents: 'none',
+                    boxShadow: '0 0 0 9999px rgba(0,0,0,0.4)',
+                  }}>
+                    {/* Corner brackets */}
+                    <div style={{ 
+                      position: 'absolute', 
+                      top: '16px', 
+                      left: '16px', 
+                      width: '40px', 
+                      height: '40px', 
+                      borderTop: `3px solid ${skyBlue}`, 
+                      borderLeft: `3px solid ${skyBlue}`,
+                      borderRadius: '4px 0 0 0',
+                    }} />
+                    <div style={{ 
+                      position: 'absolute', 
+                      top: '16px', 
+                      right: '16px', 
+                      width: '40px', 
+                      height: '40px', 
+                      borderTop: `3px solid ${skyBlue}`, 
+                      borderRight: `3px solid ${skyBlue}`,
+                      borderRadius: '0 4px 0 0',
+                    }} />
+                    <div style={{ 
+                      position: 'absolute', 
+                      bottom: '16px', 
+                      left: '16px', 
+                      width: '40px', 
+                      height: '40px', 
+                      borderBottom: `3px solid ${skyBlue}`, 
+                      borderLeft: `3px solid ${skyBlue}`,
+                      borderRadius: '0 0 0 4px',
+                    }} />
+                    <div style={{ 
+                      position: 'absolute', 
+                      bottom: '16px', 
+                      right: '16px', 
+                      width: '40px', 
+                      height: '40px', 
+                      borderBottom: `3px solid ${skyBlue}`, 
+                      borderRight: `3px solid ${skyBlue}`,
+                      borderRadius: '0 0 4px 0',
+                    }} />
+                    {/* Center crosshair */}
+                    <div style={{ 
+                      position: 'absolute', 
+                      top: '50%', 
+                      left: '50%', 
+                      transform: 'translate(-50%, -50%)',
+                      width: '60px', 
+                      height: '60px', 
+                      border: `1px solid ${skyBlue}`,
+                      borderRadius: '50%',
+                      opacity: 0.5,
+                    }} />
+                  </div>
+
                   <video 
                     ref={videoRef} 
                     autoPlay 
                     playsInline 
                     style={{ 
                       display: 'block',
-                      width: 'auto',
-                      maxWidth: '100%',
-                      maxHeight: 'calc(100vh - 280px)',
-                      borderRadius: '12px'
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      borderRadius: '12px',
                     }} 
                   />
                 </div>
+
+                {/* Fixed control bar at bottom - always visible */}
                 <div style={{ 
                   display: 'flex', 
                   gap: '16px', 
-                  marginTop: '24px',
+                  padding: '16px 24px',
                   flexWrap: 'wrap',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  zIndex: 10,
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%)',
+                  borderTop: `1px solid rgba(122, 162, 227, 0.15)`,
                 }}>
                   <button
                     type="button"
                     onClick={capturePhoto}
                     disabled={isLoading}
-                    className={primaryButtonStyle}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '14px 28px',
+                      backgroundColor: skyBlue,
+                      color: '#111',
+                      border: 'none',
+                      borderRadius: '30px',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
+                      opacity: isLoading ? 0.5 : 1,
+                      transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                      boxShadow: '0 4px 14px rgba(122, 162, 227, 0.35)',
+                      flexShrink: 0,
+                    }}
+                    onMouseDown={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(0.98)'; }}
+                    onMouseUp={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
+                    onMouseLeave={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
                   >
+                    <Camera size={18} />
                     Snap Photo
                   </button>
                   <button
                     type="button"
                     onClick={stopCamera}
                     disabled={isLoading}
-                    className={secondaryButtonStyle}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '14px 28px',
+                      backgroundColor: 'transparent',
+                      color: skyBlue,
+                      border: `2px solid ${skyBlue}`,
+                      borderRadius: '30px',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
+                      opacity: isLoading ? 0.5 : 1,
+                      transition: 'background-color 0.2s ease, color 0.2s ease',
+                      flexShrink: 0,
+                    }}
+                    onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = skyBlue; e.currentTarget.style.color = '#111'; } }}
+                    onMouseLeave={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = skyBlue; } }}
                   >
+                    <X size={18} />
                     Cancel
                   </button>
                 </div>
@@ -372,58 +503,88 @@ export default function AssessmentsPage() {
                   type="button"
                   onClick={clearImage}
                   disabled={isLoading}
-                  className="absolute top-3 right-3 p-2 rounded-lg bg-black/50 text-white hover:bg-black/70 transition-colors"
+                  className="absolute top-3 right-3 p-2 rounded-lg"
+                  style={{ backgroundColor: 'rgba(0,0,0,0.5)', color: '#fff' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.7)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.5)'; }}
                   aria-label="Remove photo"
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                  </svg>
+                  <X size={20} strokeWidth={2.5} />
                 </button>
               </>
             ) : (
-              <div className="flex flex-col items-center gap-4 px-4 text-center">
-                <svg
-                  className="w-12 h-12 text-[#A3B8A8]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
+              <div className="flex flex-col items-center gap-4 px-4 text-center" style={{ height: '100%', justifyContent: 'center' }}>
+                <div style={{ 
+                  width: '80px', 
+                  height: '80px', 
+                  borderRadius: '50%', 
+                  backgroundColor: skyBlueBg, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  border: `1px solid ${skyBlueBorder}`,
+                }}>
+                  <ImageIcon size={32} style={{ color: skyBlue }} />
+                </div>
                 <p className="text-base font-medium text-[#15261F]">Add a device photo</p>
-                <p className="text-sm text-[#A3B8A8]">Or drag & drop an image (max 10 MB)</p>
+                <p className="text-sm" style={{ color: '#A3B8A8' }}>Or drag & drop an image (max 10 MB)</p>
 
-                {/* Two identically styled action buttons */}
+                {/* Two action buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs mt-2">
                   <button
                     type="button"
                     onClick={(e) => { e.preventDefault(); uploadInputRef.current?.click(); }}
                     disabled={isLoading}
-                    className={primaryButtonStyle}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '14px 24px',
+                      backgroundColor: skyBlue,
+                      color: '#111',
+                      border: 'none',
+                      borderRadius: '30px',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
+                      opacity: isLoading ? 0.5 : 1,
+                      transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+                      boxShadow: '0 4px 14px rgba(122, 162, 227, 0.35)',
+                      flex: 1,
+                    }}
+                    onMouseDown={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(0.98)'; }}
+                    onMouseUp={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
+                    onMouseLeave={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                      <polyline points="17 8 12 3 7 8" />
-                      <line x1="12" y1="3" x2="12" y2="15" />
-                    </svg>
+                    <Upload size={18} />
                     Choose photo
                   </button>
                   <button
                     type="button"
-                    onClick={(e) => { e.preventDefault(); cameraInputRef.current?.click(); }}
+                    onClick={(e) => { e.preventDefault(); startCamera(); }}
                     disabled={isLoading}
-                    className={secondaryButtonStyle}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '10px',
+                      padding: '14px 24px',
+                      backgroundColor: 'transparent',
+                      color: skyBlue,
+                      border: `2px solid ${skyBlue}`,
+                      borderRadius: '30px',
+                      fontWeight: '700',
+                      fontSize: '14px',
+                      cursor: isLoading ? 'not-allowed' : 'pointer',
+                      opacity: isLoading ? 0.5 : 1,
+                      transition: 'background-color 0.2s ease, color 0.2s ease',
+                      flex: 1,
+                    }}
+                    onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = skyBlue; e.currentTarget.style.color = '#111'; } }}
+                    onMouseLeave={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = skyBlue; } }}
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                      <circle cx="12" cy="12" r="4" />
-                    </svg>
+                    <Camera size={18} />
                     Take photo
                   </button>
                 </div>
@@ -431,37 +592,37 @@ export default function AssessmentsPage() {
             )}
 
             {uploadProgress > 0 && uploadProgress < 100 && (
-              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center rounded-xl">
-                <div className="text-center text-white">
-                  <div className="h-2 w-48 bg-[#1B434C] rounded-full overflow-hidden mb-2">
+              <div className="absolute inset-0 flex items-center justify-center rounded-xl" style={{ backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}>
+                <div className="text-center text-white" style={{ minWidth: '200px' }}>
+                  <div className="h-2 rounded-full overflow-hidden mb-2" style={{ backgroundColor: 'rgba(255,255,255,0.2)', width: '100%' }}>
                     <div
-                      className="h-full bg-[#3A828F] rounded-full transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
+                      className="h-full rounded-full transition-all duration-300"
+                      style={{ width: `${uploadProgress}%`, backgroundColor: skyBlue }}
                     />
                   </div>
-                  <p className="text-sm">{uploadProgress}%</p>
-                  {uploadProgress < 60 && <p className="text-xs text-[#A3B8A8]">Uploading image…</p>}
-                  {uploadProgress >= 60 && <p className="text-xs text-[#A3B8A8]">Saving assessment…</p>}
+                  <p className="text-sm font-medium">{uploadProgress}%</p>
+                  {uploadProgress < 60 && <p className="text-xs" style={{ color: '#A3B8A8' }}>Uploading image…</p>}
+                  {uploadProgress >= 60 && <p className="text-xs" style={{ color: '#A3B8A8' }}>Saving assessment…</p>}
                 </div>
               </div>
             )}
           </div>
 
           {imageFile && (
-            <p className="text-xs text-[#A3B8A8] text-center">
+            <p className="text-xs text-center mt-3" style={{ color: '#A3B8A8' }}>
               {imageFile.name} · {(imageFile.size / 1024).toFixed(1)} KB
             </p>
           )}
         </div>
 
         {/* Device Details Section */}
-        <div className="card-elevated-light p-6 space-y-6">
-          <h2 className="text-lg font-semibold text-[#15261F]">Device Details</h2>
+        <div className={cardStyle} style={{ backgroundColor: '#fff', borderColor: '#d5dbd8' }}>
+          <h2 className="text-lg font-semibold text-[#15261F] mb-6">Device Details</h2>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="deviceCategory" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Device Category <span className="text-[#3A828F]">*</span>
+              <label htmlFor="deviceCategory" className={labelStyle}>
+                Device Category <span style={{ color: skyBlue }}>*</span>
               </label>
               <select
                 id="deviceCategory"
@@ -470,7 +631,7 @@ export default function AssessmentsPage() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               >
                 <option value="">Select a category</option>
                 <option value="Smartphone">Smartphone</option>
@@ -481,8 +642,8 @@ export default function AssessmentsPage() {
             </div>
 
             <div>
-              <label htmlFor="brand" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Brand <span className="text-[#3A828F]">*</span>
+              <label htmlFor="brand" className={labelStyle}>
+                Brand <span style={{ color: skyBlue }}>*</span>
               </label>
               <input
                 id="brand"
@@ -493,13 +654,13 @@ export default function AssessmentsPage() {
                 required
                 disabled={isLoading}
                 placeholder="e.g., Apple, Samsung, Dell"
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               />
             </div>
 
             <div>
-              <label htmlFor="modelName" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Model Name <span className="text-[#3A828F]">*</span>
+              <label htmlFor="modelName" className={labelStyle}>
+                Model Name <span style={{ color: skyBlue }}>*</span>
               </label>
               <input
                 id="modelName"
@@ -510,13 +671,13 @@ export default function AssessmentsPage() {
                 required
                 disabled={isLoading}
                 placeholder="e.g., iPhone 15 Pro, MacBook Air M2"
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               />
             </div>
 
             <div>
-              <label htmlFor="conditionGrade" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Condition Grade <span className="text-[#3A828F]">*</span>
+              <label htmlFor="conditionGrade" className={labelStyle}>
+                Condition Grade <span style={{ color: skyBlue }}>*</span>
               </label>
               <select
                 id="conditionGrade"
@@ -525,7 +686,7 @@ export default function AssessmentsPage() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               >
                 <option value="">Select condition</option>
                 <option value="A">Grade A - Excellent (Like new, no visible wear)</option>
@@ -536,8 +697,8 @@ export default function AssessmentsPage() {
             </div>
 
             <div>
-              <label htmlFor="estimatedValueUsd" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Estimated Value (USD) <span className="text-[#3A828F]">*</span>
+              <label htmlFor="estimatedValueUsd" className={labelStyle}>
+                Estimated Value (USD) <span style={{ color: skyBlue }}>*</span>
               </label>
               <input
                 id="estimatedValueUsd"
@@ -550,13 +711,13 @@ export default function AssessmentsPage() {
                 required
                 disabled={isLoading}
                 placeholder="0.00"
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               />
             </div>
 
             <div>
-              <label htmlFor="chosenRoute" className="block text-sm font-medium text-[#15261F] mb-1.5">
-                Chosen Route <span className="text-[#3A828F]">*</span>
+              <label htmlFor="chosenRoute" className={labelStyle}>
+                Chosen Route <span style={{ color: skyBlue }}>*</span>
               </label>
               <select
                 id="chosenRoute"
@@ -565,7 +726,7 @@ export default function AssessmentsPage() {
                 onChange={handleChange}
                 required
                 disabled={isLoading}
-                className="w-full rounded-xl bg-white border border-[#d5dbd8] text-[#15261F] placeholder-[#A3B8A8] focus:border-[#3A828F] focus:ring-1 focus:ring-[#3A828F] disabled:opacity-50 disabled:bg-[#f5f5f5] px-4 py-3 text-sm"
+                className={inputStyle}
               >
                 <option value="">Select a route</option>
                 <option value="RECYCLING">Recycling</option>
@@ -591,16 +752,59 @@ export default function AssessmentsPage() {
               clearImage();
             }}
             disabled={isLoading}
-            className="p-btn2-light min-h-[48px] md:w-40"
+            style={{
+              padding: '14px 28px',
+              backgroundColor: 'transparent',
+              color: skyBlue,
+              border: `2px solid ${skyBlue}`,
+              borderRadius: '30px',
+              fontWeight: '700',
+              fontSize: '14px',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              opacity: isLoading ? 0.5 : 1,
+              transition: 'background-color 0.2s ease, color 0.2s ease',
+              minHeight: '48px',
+              minWidth: '140px',
+            }}
+            onMouseEnter={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = skyBlue; e.currentTarget.style.color = '#111'; } }}
+            onMouseLeave={(e) => { if (!isLoading) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = skyBlue; } }}
           >
             Reset
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="p-btn min-h-[48px] md:w-44"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '10px',
+              padding: '14px 28px',
+              backgroundColor: skyBlue,
+              color: '#111',
+              border: 'none',
+              borderRadius: '30px',
+              fontWeight: '700',
+              fontSize: '14px',
+              cursor: isLoading ? 'not-allowed' : 'pointer',
+              opacity: isLoading ? 0.5 : 1,
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+              boxShadow: '0 4px 14px rgba(122, 162, 227, 0.35)',
+              minHeight: '48px',
+              minWidth: '180px',
+            }}
+            onMouseDown={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(0.98)'; }}
+            onMouseUp={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
+            onMouseLeave={(e) => { if (!isLoading) e.currentTarget.style.transform = 'scale(1)'; }}
           >
-            {isLoading ? "Submitting…" : "Submit Assessment"}
+            {isLoading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                Submitting…
+              </>
+            ) : (
+              'Submit Assessment'
+            )}
           </button>
         </div>
       </form>
