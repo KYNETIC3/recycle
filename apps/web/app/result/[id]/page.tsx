@@ -12,7 +12,11 @@ export function generateStaticParams() {
 
 async function Result({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  if (!isSampleKey(id)) notFound();
+  // Accept both sample keys (iphone, motherboard, battery) and API keys (api-iphone, etc.)
+  const isApiKey = id.startsWith("api-");
+  const sampleKey = isApiKey ? id.slice(4) : id;
+
+  if (!isSampleKey(sampleKey) && !isApiKey) notFound();
   return <ResultView sampleKey={id} />;
 }
 

@@ -1,124 +1,157 @@
-import Link from "next/link";
-import { LogoMark } from "@/components/Logo";
-import { routeForScore } from "@/lib/assess";
-import { SAMPLE_KEYS, SAMPLES } from "@/lib/samples";
+'use client'
 
-const DEVICES = SAMPLE_KEYS.map((key) => SAMPLES[key]);
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { supabase } from '@/lib/supabaseClient'
 
-const STEPS = [
-  { title: "Capture", text: "Photograph the device." },
-  { title: "Assess", text: "eLoop identifies it and checks for damage." },
-  { title: "Route", text: "Repair, reuse or recycle, with certified recyclers to hand it to." },
-];
+export default function DashboardOverview() {
+  const [partnerCount, setPartnerCount] = useState<number>(18)
+  const [assessmentCount, setAssessmentCount] = useState<number>(0)
 
-const TABLE_COLUMNS = "grid grid-cols-[minmax(0,2fr)_minmax(0,2fr)_80px_110px_24px] items-center gap-4";
+  useEffect(() => {
+    async function fetchCounts() {
+      try {
+        const { count: pCount } = await supabase.from('recycling_partners').select('*', { count: 'exact', head: true })
+        if (pCount !== null) setPartnerCount(pCount)
 
-function Chevron() {
+        const { count: aCount } = await supabase.from('assessments').select('*', { count: 'exact', head: true })
+        if (aCount !== null) setAssessmentCount(aCount)
+      } catch (err) {
+        console.error('Error fetching dashboard counts:', err)
+      }
+    }
+    fetchCounts()
+  }, [])
+
+  const cardBg = '#183030'
+  const cardBorder = '1px solid rgba(124, 224, 211, 0.25)'
+  const cardGlow = '0 0 15px rgba(124, 224, 211, 0.08)'
+  const iconBg = 'rgba(255, 255, 255, 0.06)'
+  const iconColor = '#7ce0d3'
+
+  const iconStyle = { width: '20px', height: '20px', stroke: iconColor, strokeWidth: 2, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }
+  const iconContainerStyle = { width: '40px', height: '40px', borderRadius: '10px', backgroundColor: iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '16px' }
+
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F5B53" strokeWidth="1.8" aria-hidden="true">
-      <path d="M9 5l7 7-7 7" />
-    </svg>
-  );
-}
+    <div style={{ display: 'flex', height: '100vh', backgroundColor: '#f4f0ea', fontFamily: 'sans-serif', overflowY: 'auto' }}>
+      
+      {/* Main Content Dashboard */}
+      <div style={{ flex: 1, padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
+        <h1 style={{ fontSize: '26px', fontWeight: 'bold', marginBottom: '32px', color: '#111' }}>
+          eLoop Dashboard
+        </h1>
 
-export default function OverviewPage() {
-  return (
-    <div className="pb-16 md:pb-0">
-      <header className="flex h-[52px] items-center gap-2 border-b border-rule px-4 text-lg font-semibold tracking-[-0.2px] md:hidden">
-        <LogoMark />
-        eLoop
-      </header>
-
-      <main className="flex flex-col md:gap-8 md:px-10 md:pt-8 md:pb-10">
-        <div className="p-in grid md:grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] md:gap-8">
-          <section className="flex flex-col items-stretch gap-3 px-4 py-6 md:items-start md:p-0">
-            <span className="p-label">Device assessment</span>
-            <h1 className="text-[30px] leading-9 font-semibold tracking-[-0.5px] md:text-[44px] md:leading-[50px] md:tracking-[-1px]">
-              Assess a device before it becomes waste.
-            </h1>
-            <p className="text-base leading-6 text-muted md:text-[17px] md:leading-[26px]">
-              One photo tells you whether to repair, reuse or recycle it.
-            </p>
-            <Link href="/assess" className="p-btn mt-2 min-h-[52px] md:px-7">
-              Upload device photo
-            </Link>
-          </section>
-
-          <section aria-label="Global e-waste" className="flex flex-col justify-between gap-3 bg-forest px-4 py-5 text-white md:gap-5 md:p-6">
-            <span className="p-label hidden text-mint md:block">The e-waste gap</span>
-            <div className="grid grid-cols-2 gap-4 md:gap-5">
-              <div>
-                <p className="p-num text-[32px] leading-[38px] font-medium md:text-[44px] md:leading-[50px]">62 Mt</p>
-                <p className="mt-0.5 text-sm leading-[19px] md:mt-1 md:text-[15px] md:leading-[21px]">e-waste generated in 2022</p>
-              </div>
-              <div>
-                <p className="p-num text-[32px] leading-[38px] font-medium md:text-[44px] md:leading-[50px]">22.3%</p>
-                <p className="mt-0.5 text-sm leading-[19px] md:mt-1 md:text-[15px] md:leading-[21px]">formally collected and recycled</p>
-              </div>
+        {/* Top Metric Cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginBottom: '32px' }}>
+          
+          {/* Active Partners Card */}
+          <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '28px', border: cardBorder, color: '#fff', position: 'relative', boxShadow: cardGlow }}>
+            <div style={iconContainerStyle}>
+              <svg viewBox="0 0 24 24" style={iconStyle} aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
-            <div className="flex flex-col gap-3">
-              <div aria-hidden="true" className="h-1.5 bg-leaf">
-                <div className="p-grow h-1.5 w-[22.3%] bg-white" />
-              </div>
-              <p className="text-xs leading-4 text-mint">Source: Global E-waste Monitor 2024</p>
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#a0aec0', marginBottom: '8px', fontWeight: '600' }}>
+              Active Partners
             </div>
-          </section>
-        </div>
-
-        <section className="p-in d1 px-4 pt-6 pb-2 md:p-0">
-          <h2 className="p-label mb-2">Sample devices</h2>
-
-          <div className="border-t border-rule md:hidden">
-            {DEVICES.map((d) => (
-              <Link key={d.key} href={`/result/${d.key}`} className="p-row flex min-h-[60px] items-center gap-3 border-b border-rule py-2">
-                <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="text-base leading-[22px] font-medium">{d.name}</span>
-                  <span className="text-sm leading-[19px] text-muted">{d.condition}</span>
-                </span>
-                <span className="p-num text-sm font-medium">{d.score}</span>
-                <span className="p-num w-[62px] text-[13px] font-medium text-forest">{routeForScore(d.score)}</span>
-              </Link>
-            ))}
+            <div style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '4px' }}>
+              {partnerCount}
+            </div>
+            <div style={{ fontSize: '13px', color: '#a0aec0' }}>
+              Certified recycling partners worldwide
+            </div>
           </div>
 
-          <div className="hidden border-t border-ink md:block">
-            <div className={`${TABLE_COLUMNS} p-label min-h-9 border-b border-rule`}>
-              <span>Device</span>
-              <span>Condition</span>
-              <span>Score</span>
-              <span>Route</span>
-              <span />
+          {/* Total Assessments Card */}
+          <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '28px', border: cardBorder, color: '#fff', position: 'relative', boxShadow: cardGlow }}>
+            <div style={iconContainerStyle}>
+              <svg viewBox="0 0 24 24" style={iconStyle} aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
             </div>
-            {DEVICES.map((d) => (
-              <Link key={d.key} href={`/result/${d.key}`} className={`${TABLE_COLUMNS} p-row min-h-12 border-b border-rule text-[15px]`}>
-                <span className="font-medium">{d.name}</span>
-                <span className="text-muted">{d.condition}</span>
-                <span className="p-num font-medium">{d.score}</span>
-                <span className="p-num font-medium text-forest">{routeForScore(d.score)}</span>
-                <Chevron />
-              </Link>
-            ))}
+            <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#a0aec0', marginBottom: '8px', fontWeight: '600' }}>
+              Total Assessments
+            </div>
+            <div style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '4px' }}>
+              {assessmentCount}
+            </div>
+            <div style={{ fontSize: '13px', color: '#a0aec0' }}>
+              Device assessments submitted
+            </div>
           </div>
-        </section>
-
-        <section className="p-in d2 px-4 pt-6 pb-7 md:p-0">
-          <h2 className="p-label mb-2">How it works</h2>
-          <ol className="border-t border-rule md:grid md:grid-cols-[repeat(auto-fit,minmax(min(100%,220px),1fr))] md:gap-6 md:border-t-0">
-            {STEPS.map((step, i) => (
-              <li
-                key={step.title}
-                className="flex gap-3.5 border-b border-rule py-3 md:flex-col md:gap-1 md:border-t-[3px] md:border-b-0 md:border-t-forest md:pt-2.5 md:pb-0"
-              >
-                <span className="p-num text-[13px] leading-[22px] font-medium text-forest md:text-xs md:text-muted">0{i + 1}</span>
-                <span className="text-[15px] leading-[22px]">
-                  <strong className="font-semibold md:block md:text-[17px] md:leading-6">{step.title}</strong>{" "}
-                  <span className="md:mt-1 md:block md:text-muted">{step.text}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
-        </section>
-      </main>
     </div>
-  );
+
+    {/* Quick Actions Section */}
+    <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px', color: '#333' }}>
+      Quick Actions
+    </h2>
+
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px', marginBottom: '32px' }}>
+      
+      {/* New Assessment Quick Link */}
+      <Link href="/assessments" style={{ textDecoration: 'none' }}>
+        <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '24px', border: cardBorder, color: '#fff', cursor: 'pointer', height: '100%', boxSizing: 'border-box', boxShadow: cardGlow }}>
+          <div style={iconContainerStyle}>
+            <svg viewBox="0 0 24 24" style={iconStyle} aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          </div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '6px', color: '#fff' }}>
+            New Assessment →
+          </div>
+          <div style={{ fontSize: '13px', color: '#a0aec0' }}>
+            Capture and analyze a device
+          </div>
+        </div>
+      </Link>
+
+      {/* Find Recyclers Quick Link */}
+      <Link href="/recyclers" style={{ textDecoration: 'none' }}>
+        <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '24px', border: cardBorder, color: '#fff', cursor: 'pointer', height: '100%', boxSizing: 'border-box', boxShadow: cardGlow }}>
+          <div style={iconContainerStyle}>
+            <svg viewBox="0 0 24 24" style={iconStyle} aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '6px', color: '#fff' }}>
+            Find Recyclers →
+          </div>
+          <div style={{ fontSize: '13px', color: '#a0aec0' }}>
+            Browse certified recycling partners
+          </div>
+        </div>
+      </Link>
+
+      {/* History Quick Link */}
+      <Link href="/history" style={{ textDecoration: 'none' }}>
+        <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '24px', border: cardBorder, color: '#fff', cursor: 'pointer', height: '100%', boxSizing: 'border-box', boxShadow: cardGlow }}>
+          <div style={iconContainerStyle}>
+            <svg viewBox="0 0 24 24" style={iconStyle} aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '6px', color: '#fff' }}>
+            History →
+          </div>
+          <div style={{ fontSize: '13px', color: '#a0aec0' }}>
+            View past assessments
+          </div>
+        </div>
+      </Link>
+
+    </div>
+
+    {/* New to eLoop Banner Card */}
+    <div style={{ backgroundColor: cardBg, borderRadius: '12px', padding: '32px', border: cardBorder, color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: cardGlow }}>
+      <div>
+        <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '1.2px', color: '#7ce0d3', marginBottom: '8px', textTransform: 'uppercase' }}>
+          New to eLoop?
+        </div>
+        <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px' }}>
+          Start your first assessment
+        </h3>
+        <p style={{ fontSize: '13px', color: '#a0aec0', maxWidth: '600px', lineHeight: '1.5' }}>
+          Upload a device photo and let our AI evaluate its condition, then get a recommended circular route with certified recycler matches.
+        </p>
+      </div>
+      <Link href="/assessments">
+        <button style={{ padding: '12px 24px', backgroundColor: '#7ce0d3', color: '#111', border: 'none', borderRadius: '24px', fontWeight: '600', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+          Upload Device Photo
+        </button>
+      </Link>
+    </div>
+
+  </div>
+</div>
+)
 }

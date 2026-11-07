@@ -3,8 +3,8 @@ import type { SampleKey } from "@/lib/samples";
 function Callout({ x, y, n }: { x: number; y: number; n: number }) {
   return (
     <>
-      <circle cx={x} cy={y} r="9" fill="#FFFFFF" stroke="#14241A" />
-      <text x={x} y={y + 4} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="#14241A" stroke="none">
+      <circle cx={x} cy={y} r="9" fill="#FFFFFF" stroke="#0F2C33" />
+      <text x={x} y={y + 4} textAnchor="middle" fontFamily="var(--font-mono)" fontSize="11" fill="#0F2C33" stroke="none">
         {n}
       </text>
     </>
@@ -30,8 +30,8 @@ const DRAWINGS: Record<SampleKey, React.ReactNode> = {
       <rect x="84" y="98" width="72" height="92" />
       <path d="M84 118h72M84 138h72M84 158h72" strokeDasharray="2 3" />
       <path d="M84 200h72" strokeDasharray="2 3" />
-      <path d="M118 124l14 16-9 10 18 28M132 140l16-8M123 150l-20 8" stroke="#1565C0" strokeWidth="1.5" />
-      <path d="M50 14v212M46 14h8M46 226h8" stroke="#81C784" />
+      <path d="M118 124l14 16-9 10 18 28M132 140l16-8M123 150l-20 8" stroke="#3B5B73" strokeWidth="1.5" />
+      <path d="M50 14v212M46 14h8M46 226h8" stroke="#3A828F" />
       <Callout x={170} y={134} n={1} />
       <Callout x={170} y={62} n={2} />
       <Callout x={70} y={170} n={3} />
@@ -48,8 +48,8 @@ const DRAWINGS: Record<SampleKey, React.ReactNode> = {
       <rect x="94" y="54" width="36" height="36" />
       <rect x="154" y="40" width="7" height="92" />
       <rect x="166" y="40" width="7" height="92" />
-      <rect x="178" y="40" width="7" height="92" stroke="#1565C0" strokeWidth="1.5" />
-      <rect x="190" y="40" width="7" height="92" stroke="#1565C0" strokeWidth="1.5" />
+      <rect x="178" y="40" width="7" height="92" stroke="#3B5B73" strokeWidth="1.5" />
+      <rect x="190" y="40" width="7" height="92" stroke="#3B5B73" strokeWidth="1.5" />
       <rect x="44" y="146" width="120" height="9" />
       <rect x="44" y="172" width="120" height="6" />
       <rect x="44" y="190" width="120" height="6" />
@@ -70,8 +70,8 @@ const DRAWINGS: Record<SampleKey, React.ReactNode> = {
       <path d="M30 94h52M30 120h52M30 146h52M94 94h52M94 120h52M94 146h52M158 94h52M158 120h52M158 146h52" strokeDasharray="2 3" />
       <rect x="60" y="30" width="120" height="16" />
       <path d="M72 46v12M168 46v12" />
-      <path d="M180 38h24v20" stroke="#1565C0" strokeWidth="1.5" />
-      <path d="M20 200h200M20 196v8M220 196v8" stroke="#81C784" />
+      <path d="M180 38h24v20" stroke="#3B5B73" strokeWidth="1.5" />
+      <path d="M20 200h200M20 196v8M220 196v8" stroke="#3A828F" />
       <Callout x={30} y={68} n={1} />
       <Callout x={146} y={172} n={2} />
       <Callout x={60} y={38} n={3} />
@@ -81,7 +81,7 @@ const DRAWINGS: Record<SampleKey, React.ReactNode> = {
 
 export function DeviceDrawing({ device }: { device: SampleKey }) {
   return (
-    <svg viewBox="0 0 240 240" fill="none" stroke="#1B5E20" strokeWidth="1.2" role="img" aria-label={LABELS[device]} className="mx-auto block h-auto w-full max-w-60">
+    <svg viewBox="0 0 240 240" fill="none" stroke="#0F2C33" strokeWidth="1.2" role="img" aria-label={LABELS[device]} className="mx-auto block h-auto w-full max-w-60">
       {DRAWINGS[device]}
     </svg>
   );

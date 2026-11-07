@@ -54,10 +54,10 @@ export function SideNav() {
   const pathname = usePathname();
 
   return (
-    <div className="on-green hidden w-[232px] shrink-0 bg-forest md:block">
-      <nav aria-label="Main" className="sticky top-0 flex flex-col gap-7 py-5 text-white">
-        <Link href="/" className="flex h-8 items-center gap-2.5 px-5 text-xl font-semibold tracking-[-0.2px]">
-          <LogoMark size={22} color="#FFFFFF" />
+    <div className="on-teal hidden w-[232px] shrink-0 bg-[#0F2C33] border-r border-[#1B434C] md:block">
+      <nav aria-label="Main" className="sticky top-0 flex flex-col gap-7 py-5">
+        <Link href="/" className="flex h-8 items-center gap-2.5 px-5 text-xl font-semibold tracking-[-0.2px] text-white">
+          <LogoMark size={22} color="#81D8D0" />
           eLoop
         </Link>
         <div className="flex flex-col">
@@ -68,9 +68,15 @@ export function SideNav() {
                 key={link.href}
                 href={link.href}
                 aria-current={on ? "page" : undefined}
-                className={`flex min-h-11 items-center gap-3 px-5 text-[15px] font-medium ${on ? "bg-ground text-forest" : "text-white"}`}
+                className={`relative flex min-h-11 items-center gap-3 px-5 text-[15px] font-medium transition-all duration-150 ${
+                  on
+                    ? "bg-[#13353E] text-white border-l-4 border-[#81D8D0] pl-1"
+                    : "text-[#E2E8F0] hover:text-white hover:bg-[#13353E]"
+                }`}
               >
-                <span className={`p-num text-xs ${on ? "text-forest" : "text-mint"}`}>0{i + 1}</span>
+                <span className={`p-num text-xs ${on ? "text-[#81D8D0]" : "text-[#A3B8A8]"}`}>
+                  0{i + 1}
+                </span>
                 {link.label}
               </Link>
             );
@@ -90,7 +96,7 @@ export function TabBar() {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-x-0 bottom-0 z-10 grid h-16 grid-cols-4 border-t border-rule bg-ground md:hidden"
+      className="fixed inset-x-0 bottom-0 z-10 grid h-16 grid-cols-4 border-t border-[#D5DBD8] bg-[#EAE6DF] md:hidden"
     >
       {LINKS.map((link) => {
         const on = isActive(link.href, pathname);
@@ -99,7 +105,11 @@ export function TabBar() {
             key={link.href}
             href={link.href}
             aria-current={on ? "page" : undefined}
-            className={`-mt-px flex flex-col items-center justify-center gap-[3px] border-t-2 text-xs ${on ? "border-forest font-semibold text-forest" : "border-transparent font-medium text-muted"}`}
+            className={`-mt-px flex flex-col items-center justify-center gap-[3px] border-t-2 text-xs ${
+              on
+                ? "border-[#81D8D0] font-semibold text-[#0F2C33]"
+                : "border-transparent font-medium text-[#4A5A4D]"
+            }`}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
               {link.icon}

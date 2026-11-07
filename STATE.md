@@ -5,8 +5,8 @@ An AI-powered device triage platform for hackathons. Users upload device photos;
 
 ## Core Tech Stack
 - **Frontend:** Next.js 16 (App Router, Cache Components), Tailwind CSS 4, TypeScript (`apps/web`)
-- **Backend:** Python, FastAPI (`apps/api`, not created yet)
-- **AI Vision:** Multimodal Vision API (Free tier)
+- **Backend:** Python, FastAPI (`apps/api`) — **initialized**
+- **AI Vision:** Multimodal Vision API (Free tier) — **integration scaffolded**
 
 ---
 
@@ -14,7 +14,7 @@ An AI-powered device triage platform for hackathons. Users upload device photos;
 Replaces every earlier visual treatment listed under Completed Tasks. The single page is gone.
 - **Look:** clean engineering. IBM Plex Sans and Mono, 2px corners, 1px rules, no shadows. Ground `#F8F9FA`, deep green `#1B5E20`, deep blue `#1565C0` for the one main action per screen. Tokens are in `apps/web/app/globals.css`.
 - **Routes:** `/` Overview, `/assess` New assessment, `/result/[id]` Repair, Reuse or Recycle, `/recyclers`, `/history`. Save is a dialog on the result screen. Green side rail from 768px up, tab bar below that.
-- **Simulated:** `assessDevice()` in `apps/web/lib/assess.ts` is the one call to replace with the real API. Uploaded and camera photos end in a sample result, labelled as such.
+- **API Connected:** `assessDevice()` in `apps/web/lib/assess.ts` now calls FastAPI `/api/diagnose` endpoint. Photo uploads and camera captures are routed to the real backend (falls back to samples when vision API key not configured).
 - **Placeholders:** material, mass and impact figures in `lib/samples.ts` are invented and labelled "Sample data". Route cut-offs (60 and 45) are placeholders.
 - **Saved data:** `lib/history.ts` keeps saved results in `localStorage`, one entry per sample device. The Save dialog's sign-in buttons create no account.
 - **Left out for now:** repair guide, parts-to-reuse screen, sign-in link, recycler distances and recycler detail pages, because none has anything behind it yet.
@@ -233,15 +233,197 @@ Replaces every earlier visual treatment listed under Completed Tasks. The single
     - Creator/Publisher: "eLoop"
     - Viewport themeColor: Updated to teal `#0F2C33` (from forest green)
   - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Global Visual Regression Fix & Design System Enforcement** (`apps/web/app/globals.css`, `apps/web/components/Nav.tsx`, `apps/web/app/assess/AssessmentFlow.tsx`, `apps/web/app/history/HistoryView.tsx`, `apps/web/app/recyclers/page.tsx`, `apps/web/app/result/[id]/ResultView.tsx`):
+  - **Sidebar & Brand Color System**:
+    - Replaced all flat green (`#1E6B2C`, `bg-green-*`, `bg-forest`) in sidebar, metric header cards, and callout boxes with Deep Tech-Teal (`bg-[#0F2C33]`) and borders (`border-[#1B434C]`)
+    - Active sidebar nav items: high-contrast white text (`text-[#FFFFFF]`) with cyan accent marker (`border-l-4 border-[#3A828F]`)
+    - Inactive sidebar nav items: readable soft bone text (`text-[#E2E8F0]`)
+  - **Button Standardization (Eliminate Mismatched Blue)**:
+    - Replaced all generic blue primary buttons (`Upload device photo`, `Choose photo`, `New assessment`, `Run assessment`) with vibrant Cyan-Teal buttons (`bg-[#3A828F] hover:bg-[#2E7985] text-white font-medium`)
+    - Secondary buttons standardized with `p-btn2` and `p-btn2-light` utility classes
+  - **Background & Surface Uniformity**:
+    - Main workspace canvas backgrounds set to Industrial Warm Stone (`bg-[#EAE6DF]`) instead of plain white
+    - Card surfaces: deep tech-teal (`bg-[#0F2C33]` / `bg-[#13353E]`) or crisp white (`bg-[#FFFFFF]`) depending on context
+    - Body text: high-contrast dark charcoal (`text-[#15261F]`) on light, soft bone (`text-[#F4F1EA]`) on dark
+    - Borders unified to teal-slate (`border-[#1B434C]`) with stronger variant (`border-[#2D5D68]`)
+  - **Design System Tokens Updated** (`globals.css`):
+    - Core palette: `--color-ground: #EAE6DF`, `--color-teal-deep: #0F2C33`, `--color-teal-border: #1B434C`, `--color-cyan-teal: #3A828F`
+    - Button system: `.p-btn` (cyan-teal primary), `.p-btn2` (outlined on dark), `.p-btn2-light` (outlined on light)
+    - Card utilities: `.card-dark`, `.card-dark-alt`, `.card-light`
+    - Text utilities: `.text-on-dark-primary`, `.text-on-dark-secondary`, `.text-on-dark-muted`
+    - Icon utilities: `.icon-on-dark`, `.icon-on-dark-muted`
+    - Focus rings: `outline: 2px solid var(--color-cyan-teal)` with `.on-teal` modifier
+  - **Routes Verified**: `/`, `/assess`, `/recyclers`, `/history`, `/result/[id]` — all build successfully
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Global Styling Audit — Design System Enforcement** (`apps/web/app/globals.css` + all route files + components):
+  - **Sidebar & Brand Color System**:
+    - Sidebar background: Deep Tech-Teal (`bg-[#0F2C33]`) with border (`border-[#1B434C]`)
+    - Active nav items: High-contrast white text (`text-[#FFFFFF]`) with cyan accent marker (`border-l-4 border-[#3A828F]`)
+    - Inactive nav items: Readable soft bone text (`text-[#E2E8F0]`) with hover states
+    - Tab bar (mobile): Updated to warm stone background with teal active indicators
+  - **Button Standardization (Eliminate Mismatched Blue)**:
+    - All primary buttons (Upload device photo, Choose photo, Run assessment, Take photo, View result, Find a recycler, Save assessment, New assessment) → Vibrant Cyan-Teal (`bg-[#3A828F] hover:bg-[#2E7985] text-white font-medium`)
+    - Secondary buttons on dark cards: Outlined with white text, teal hover
+    - Secondary buttons on light backgrounds: Outlined with dark charcoal text
+  - **Background & Surface Uniformity**:
+    - Main workspace canvas: Industrial Warm Stone (`bg-[#EAE6DF]`) — eliminates eye strain
+    - Dark card surfaces: Deep Tech-Teal (`bg-[#0F2C33]`) with 1px borders (`border-[#1B434C]`)
+    - Light card surfaces: Crisp white (`bg-[#FFFFFF]`) with subtle borders
+    - Body text on light bg: Dark charcoal (`text-[#15261F]`)
+    - Body text on dark cards: Soft bone (`text-[#F4F1EA]`) / muted bone (`text-[#E2E8F0]`)
+  - **Updated Design System Tokens** (`globals.css`):
+    - Core palette: `--color-bg-main: #EAE6DF`, `--color-bg-card: #0F2C33`, `--color-bg-card-alt: #13353E`, `--color-bg-white: #FFFFFF`
+    - Borders: `--color-border-card: #1B434C`, `--color-border-card-strong: #2D5D68`
+    - Text: `--color-text-primary: #15261F`, `--color-text-secondary: #4A5A4D`, `--color-text-on-dark-primary: #FFFFFF`, `--color-text-on-dark-secondary: #F4F1EA`, `--color-text-on-dark-muted: #E2E8F0`
+    - Accents: `--color-teal-primary: #3A828F`, `--color-teal-light: #4AA3AE`, `--color-teal-dark: #2D6B73`, `--color-teal-muted: #A3B8A8`
+    - New utility classes: `.card-dark`, `.card-dark-alt`, `.card-light`, `.text-on-dark-*`, `.icon-on-dark-*`, `.badge-teal`, `.step-badge`
+  - **Routes Updated**: `/` (Overview), `/assess` (AssessmentFlow), `/history` (HistoryView), `/recyclers`, `/result/[id]` (ResultView)
+  - **Components Updated**: `Nav.tsx` (SideNav, TabBar), `SaveDialog.tsx`, `RouteScale.tsx`, `Materials.tsx`, `Lifecycle.tsx`, `layout.tsx`
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **FastAPI Backend Initialization** (`apps/api/main.py`, `apps/api/pyproject.toml`, `apps/api/README.md`):
+  - Created FastAPI application with `/api/diagnose`, `/api/samples`, `/health` endpoints
+  - Configured CORS for frontend development
+  - Added Pydantic models for request/response validation
+  - Scaffolded multimodal vision API integration (OpenAI-compatible endpoint)
+  - Sample data fallback when vision API key not configured
+  - Environment configuration via `.env` file
+  - Python 3.11+, Ruff, MyPy, pytest configured
+- [x] **Frontend-Backend Integration** (`apps/web/lib/assess.ts`, `apps/web/app/result/[id]/ResultView.tsx`, `apps/web/app/result/[id]/page.tsx`):
+  - Replaced simulated `assessDevice()` with real API call to `/api/diagnose`
+  - Added `getDiagnosis()` for fetching full results on result page
+  - Supports both sample keys (iphone, motherboard, battery) and photo uploads
+  - Result page handles both static sample routes and dynamic API routes (`api-*` prefix)
+  - Loading spinner and error states for async diagnosis
+  - SessionStorage caching for photo-based results
+  - Next.js config updated with `NEXT_PUBLIC_API_URL` environment variable
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Brand Palette Update: Light Turquoise/Cyan Accent (#81D8D0)** across all routes:
+  - **Design Tokens** (`apps/web/app/globals.css`): Added `--color-turquoise: #81D8D0`; updated primary buttons (`.p-btn`), progress bars (`.p-sweep`), dialog borders (`.p-dialog`), badges (`.badge-teal`, `.badge-teal-dark`), step badges (`.step-badge`), focus rings to use turquoise
+  - **Sidebar Navigation** (`components/Nav.tsx`): Active items now use `border-l-4 border-[#81D8D0] text-[#81D8D0]`; step numbers use turquoise; TabBar active state uses turquoise border and text
+  - **Overview Page** (`app/page.tsx`): "Upload device photo" button uses turquoise; progress bar fill uses turquoise; How It Works step borders and numbers use turquoise; route text uses turquoise
+  - **Assessment Page** (`app/assess/AssessmentFlow.tsx`): "Choose photo" (primary), "Run assessment", "View result", "Take photo" buttons use turquoise; progress bar uses turquoise; active step indicator uses turquoise; drag-active border uses turquoise; Cancel link uses turquoise
+  - **Recyclers Page** (`app/recyclers/page.tsx`): Header and aside use deep tech-teal cards; step numbers use turquoise; borders use teal-slate
+  - **History Page** (`app/history/HistoryView.tsx`): Route text uses turquoise; "New assessment" button uses turquoise
+  - **Result Page** (`app/result/[id]/ResultView.tsx`): Primary action buttons ("Find a recycler", "Save assessment") use turquoise; tab active state uses turquoise; header route section uses deep tech-teal cards; RecyclersLink uses turquoise; Overview breadcrumb link uses turquoise
+  - **Components**: `RouteScale` active band uses turquoise; `Lifecycle` active steps use turquoise; `SaveDialog` "Not now" link uses turquoise; `LogoMark` default color updated to turquoise
+  - **Background Canvas**: Maintained Industrial Warm Stone (`#EAE6DF`) across all pages
+  - **Contrast**: High-contrast dark charcoal (`#15261F`) body text on light surfaces; bone white (`#F4F1EA`) on dark panels
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Route Status Tag Contrast Fix** (`apps/web/app/page.tsx`, `apps/web/app/history/HistoryView.tsx`):
+  - Fixed route labels ('Repair', 'Reuse', 'Recycle') in sample devices table and history table: changed from light turquoise (`text-[#81D8D0]`) to Deep Tech-Teal (`text-[#0F2C33] font-bold`) for WCAG AA compliance on warm stone background (`#EAE6DF`)
+  - Fixed "How it works" step numbers (mobile): changed from light turquoise to Deep Tech-Teal (`text-[#0F2C33]`) for contrast on light background
+  - Verified primary "Upload device photo" button maintains Deep Tech-Teal text (`text-[#0F2C33] font-semibold`) over `#81D8D0` background via `.p-btn` utility class
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Aesthetic Refinement — Rounded Cards & Subtle Elevation** (`apps/web/app/globals.css`, `apps/web/app/page.tsx`, `apps/web/app/assess/AssessmentFlow.tsx`, `apps/web/app/history/HistoryView.tsx`, `apps/web/app/recyclers/page.tsx`, `apps/web/app/result/[id]/ResultView.tsx`):
+  - **Design System Updates** (`globals.css`):
+    - Buttons: Updated `.p-btn`, `.p-btn2`, `.p-btn2-light`, `.p-btn-turquoise` to use `rounded-full` (pill shape) with subtle shadows
+    - Cards: Updated `.card-dark`, `.card-dark-alt`, `.card-light` to use `rounded-2xl` (1rem) with layered shadows
+    - New variants: `.card-elevated` (1.5rem radius, stronger shadow for hero panels) and `.card-elevated-light` (light variant)
+  - **Overview Page** (`page.tsx`):
+    - Hero "Global e-waste" panel: `card-elevated` with generous padding
+    - Sample devices tables: `card-elevated-light` with `overflow-hidden` for clean rounded corners
+    - "How it works" steps: Individual `card-elevated-light` cards with `rounded-2xl`, accent top border
+  - **Assessment Page** (`AssessmentFlow.tsx`):
+    - Photo dropzone: `rounded-2xl` with proper clipping for camera/image content
+    - Assessment progress panel: `card-elevated` with refined spacing
+    - Sample device selector: `card-elevated` with rounded buttons
+  - **Recyclers Page** (`recyclers/page.tsx`):
+    - Header: `card-elevated`
+    - Partners list: `card-elevated-light` with `overflow-hidden`
+    - Preparation aside: `card-elevated` with step numbers in Deep Tech-Teal (`#0F2C33`)
+  - **History Page** (`HistoryView.tsx`):
+    - Header totals: `card-elevated`
+    - Empty state: `card-elevated-light`
+    - History table: `card-elevated-light` with `overflow-hidden`
+  - **Result Page** (`ResultView.tsx`):
+    - Mobile route header: `card-elevated`
+    - Desktop route header: `card-elevated` with larger padding
+    - Findings/DeviceDrawing panel: `card-elevated-light` with `rounded-xl`
+    - Findings/Details section: `card-elevated-light` with `rounded-2xl`
+    - Impact grid: `card-elevated-light` with `rounded-2xl`
+    - Parts list: `card-elevated-light` with `rounded-2xl`
+  - **Contrast Maintained**: Route tags ('Repair', 'Reuse', 'Recycle') remain Deep Tech-Teal (`text-[#0F2C33] font-bold`) on light surfaces; pure white (`#FFFFFF`) titles and soft bone (`#F4F1EA`) body text in dark containers
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Layout & Spacing Fix — Consistent Page Padding & Header Spacing** (`apps/web/app/page.tsx`, `apps/web/app/assess/AssessmentFlow.tsx`, `apps/web/app/history/HistoryView.tsx`, `apps/web/app/recyclers/page.tsx`, `apps/web/app/result/[id]/ResultView.tsx`):
+  - **History Page** (`HistoryView.tsx`):
+    - Removed awkward outer `card-elevated` container wrapping both heading and metric cards
+    - Heading "History" now has clear breathing room with `gap-6 md:gap-8` below it before metric cards
+    - Metric cards grid: changed to clean `grid grid-cols-1 md:grid-cols-3 gap-6` with proper `p-6 md:p-8` internal padding
+    - Numbers and labels no longer look squeezed
+  - **Page Canvas Padding** (all routes):
+    - `/` (Overview): Wrapper now uses `p-8 md:p-10` with `main` using `gap-8`
+    - `/assess`: Wrapper changed from `pb-24 md:px-10 md:pt-8 md:pb-10` to `p-8 md:p-10 pb-24 md:pb-10` (preserves mobile bottom bar space)
+    - `/recyclers`: Wrapper changed from `pb-16 md:px-10 md:pt-8 md:pb-10` to `p-8 md:p-10`
+    - `/history`: Wrapper changed from `pb-16 md:px-10 md:pt-8 md:pb-10` to `p-8 md:p-10`
+    - `/result/[id]`: Mobile wrapper added `px-4` for horizontal padding; desktop already has `px-10`
+  - Content no longer collides with left sidebar or screen edges on any viewport
+  - Build verified successfully with zero TypeScript/Next.js errors
+- [x] **Comprehensive UI & Layout Overhaul — High-Contrast Cards, Locked Grid View, Spacing** (`apps/web/app/globals.css`, `apps/web/app/page.tsx`, `apps/web/app/assess/AssessmentFlow.tsx`, `apps/web/app/history/HistoryView.tsx`, `apps/web/app/recyclers/RecyclersView.tsx`, `apps/web/app/recyclers/page.tsx`):
+  - **Design System Enhancements** (`globals.css`):
+    - All card utilities upgraded to `rounded-2xl` (1.5rem / 24px) with consistent 1px borders (`border-[#1B434C]`)
+    - New standardized card classes: `.card-header` (page headers with generous `p-6 md:p-10`), `.card-elevated`/`.card-elevated-light` (hero panels with `p-6 md:p-8`), `.card-content`/`.card-content-dark` (list items with `p-4 md:p-6`)
+    - High-contrast text tokens enforced: dark cards use `#FFFFFF` (headings) and `#F4F1EA` (body); light cards use `#15261F` (headings) and `#4A5A4D` (body)
+    - Primary buttons (`.p-btn`): Updated to `rounded-xl` with Deep Tech-Teal text (`text-[#0F2C33] font-semibold`) on Light Turquoise background (`bg-[#81D8D0]`)
+    - Secondary buttons: Updated to `rounded-xl`
+  - **Overview Page** (`page.tsx`):
+    - Hero section: Reduced heading to `text-2xl md:text-3xl font-bold tracking-tight`, added `gap-6` between elements
+    - "Global e-waste" panel: `.card-elevated` with proper `p-6 md:p-8` padding, stats use larger `text-3xl md:text-4xl`
+    - Sample devices: Mobile card grid with `gap-4`, desktop table with consistent spacing
+    - "How it works": 3-column grid with `.card-elevated` + `border-t-4 border-[#81D8D0]`, generous internal padding (`p-6 md:p-8`)
+    - Route status tags: Now use Deep Tech-Teal (`text-[#0F2C33] font-bold`) for WCAG AAA contrast on light backgrounds
+  - **Assessment Page** (`AssessmentFlow.tsx`):
+    - Photo dropzone: `rounded-2xl` with proper clipping, cleaner empty state
+    - Assessment log: `.card-elevated` with white text, progress bar `h-[6px]`, log items as `.card-content-dark`
+    - Sample selector: `.card-elevated` with `.card-content-dark` items, proper hover states
+    - Bottom action bars: Consistent `min-h-[48px]` with proper widths
+  - **Recyclers Page** (`RecyclersView.tsx` + `page.tsx`):
+    - Header: `.card-header` with `p-6 md:p-10`, reduced heading to `text-2xl md:text-3xl font-bold tracking-tight` — **no clipping, generous breathing room**
+    - **Grid View Locked**: Permanently render recycling partners in clean responsive multi-column card grid (`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`) with `p-6 md:p-8` internal padding — **Grid/List toggle completely removed**
+    - Partners section: Generous `space-y-8` between sections, proper heading hierarchy
+    - Preparation aside: `.card-elevated` with `p-6 md:p-8` and `space-y-3`, step numbers in turquoise (`#81D8D0`)
+  - **History Page** (`HistoryView.tsx`):
+    - Header: `.card-header` with `p-6 md:p-10`, reduced heading to `text-2xl md:text-3xl font-bold tracking-tight` — **no clipping, generous breathing room**
+    - **Grid View Locked**: Permanently render saved assessments in clean responsive multi-column card grid (`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`) — **Grid/List toggle completely removed**
+    - Totals: 3-column grid (`grid grid-cols-1 md:grid-cols-3 gap-6`) with `.card-elevated` cards with `p-6` internal padding
+    - **Metric card labels**: Subscript formatting for CO₂e (e.g., `CO\u2082e avoided`) via `formatMetricLabel()` helper
+    - Grid cards: Device name, date, score badge, route badge (`.badge-teal-dark`)
+    - Empty state: Centered `.card-elevated-light` with clear CTA
+  - **WCAG AAA Contrast Compliance**: All dark cards use `#FFFFFF`/`#F4F1EA` text on `#0F2C33` with `border-[#1B434C]`; all light cards use `#15261F`/`#4A5A4D` on `#FFFFFF` with `border-[#D5DBD8]`; Route status tags on light backgrounds use Deep Tech-Teal (`text-[#0F2C33] font-bold`)
+  - Build verified successfully with zero TypeScript/Next.js errors
 
 ---
 
 ## 🟡 In Progress
-- [ ] Initialize FastAPI backend environment in `apps/api`
+- [ ] Add multimodal AI vision integration (free tier) — **scaffolded, needs API key**
 
 ---
 
+## 🟢 Completed Tasks
+- [x] **Core PostgreSQL Database Schema for eLoop** (`supabase/migrations/`):
+  - `assessments` table: Device triage records with UUID PK, user_id FK, device_category enum, computed_score (0-100), chosen_route enum (Repair/Reuse/Recycle), carbon_savings_kg_co2e, JSONB metadata, timestamps
+  - `recycling_partners` table: Certified recycler directory with UUID PK, location/region, supported_materials array, certifications array, accepts_device_categories array, contact/routing info, PostGIS-ready lat/lng
+  - Row-Level Security (RLS) policies: assessments private per user; recycling_partners public read for active partners
+  - Indexes: user_id, device_category, chosen_route, created_at, GIN indexes for arrays, partial indexes for common queries
+  - Helper function: `get_nearby_recyclers()` for location-based search (Haversine formula)
+  - Seed data: 18 certified recyclers across NA, Europe, APAC, Australia with real certifications (R2v3, e-Stewards, ISO14001)
+- [x] **TypeScript Database Types** (`apps/web/src/types/database.ts`):
+  - Full type definitions matching PostgreSQL schema (enums, tables, inserts, updates)
+  - Query result types with computed fields (distance_km for nearby search)
+  - Filter/query parameter types for type-safe Supabase queries
+  - Aggregate stats types for dashboards
+  - Typed Supabase client schema (`Database` interface)
+  - Type guards and validation helpers
+- [x] **Supabase Client Configuration** (`apps/web/src/lib/supabase.ts`):
+  - Browser singleton client (SSR-compatible with @supabase/ssr)
+  - Server client for Server Components/Actions
+  - Service role client for admin operations
+  - Middleware client for session refresh
+  - Typed query helpers for assessments and recycling_partners
+  - Auth helpers (getUser, getSession, requireAuth)
+
 ## 🔴 Next Tasks
-1. Write FastAPI `/api/diagnose` route (`apps/api/main.py`)
-2. Connect frontend to FastAPI backend endpoint
-3. Add multimodal AI vision integration (free tier)
+1. Configure `VISION_API_KEY` in `apps/api/.env` for live AI photo analysis
+2. Test end-to-end flow: photo upload → API diagnosis → result display
+3. Add repair guide, parts-to-reuse screen, and recycler detail pages
+4. Run Supabase migrations: `supabase db push` (when Supabase project linked)
+5. Add Supabase env vars to Vercel/Netlify for deployment

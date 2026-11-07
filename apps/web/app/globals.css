@@ -1,42 +1,64 @@
 @import "tailwindcss";
 
-/* Design B: clean engineering. Flat, ruled, square. */
+/* Design System: Deep Forest-Slate / Industrial Warm Stone / Muted Sage Accent */
 @theme inline {
   --font-sans: var(--font-plex-sans), Arial, sans-serif;
   --font-mono: var(--font-plex-mono), Menlo, monospace;
 
-  --color-ground: #F8F9FA;
-  --color-ink: #14241A;
-  --color-muted: #4F5B53;
-  --color-rule: #D5DBD8;
-  --color-rule-soft: #E9EDEB;
-  --color-rule-strong: #AEB9B3;
-  --color-rule-green: #4C7E50;
-  --color-forest: #1B5E20;
-  --color-leaf: #2E7D32;
-  --color-mint: #C8E6C9;
-  --color-signal: #1565C0;
-  --color-signal-dark: #0D47A1;
-  --color-alert: #B3261E;
+  /* Core Palette */
+  --color-bg-main: #f4f0ea;           /* Industrial Warm Stone - main canvas */
+  --color-bg-card: #102222;           /* Deep Forest-Slate - primary card surface */
+  --color-bg-card-alt: #162a2a;       /* Slightly lighter slate - alt card surface */
+  --color-bg-white: #FFFFFF;          /* Crisp white - secondary card surface */
+  --color-border-card: #1f3d3d;       /* Subtle slate border */
+  --color-border-card-strong: #2d5d68; /* Stronger teal-slate border */
+
+  /* Text Colors */
+  --color-text-primary: #15261f;      /* Dark charcoal - body text on light bg */
+  --color-text-secondary: #4a5a4d;    /* Muted dark - secondary text on light bg */
+  --color-text-on-dark-primary: #ffffff;   /* Pure white - headings on dark cards */
+  --color-text-on-dark-secondary: #f4f1ea; /* Soft bone - body text on dark cards */
+  --color-text-on-dark-muted: #a3b8a8;     /* Muted sage - tertiary text on dark cards */
+
+  /* Accent Colors - Professional Muted Tones */
+  --color-teal-primary: #3a828f;      /* Muted teal - primary actions, active states */
+  --color-teal-light: #4aa3ae;        /* Lighter teal - hover states */
+  --color-teal-dark: #2d6b73;         /* Darker teal - pressed states */
+  --color-teal-muted: #a3b8a8;        /* Soft sage - muted accents */
+  --color-turquoise: #3a828f;         /* Unified with teal-primary - no neon */
+
+  /* Legacy aliases for gradual migration */
+  --color-ground: #f4f0ea;
+  --color-ink: #15261f;
+  --color-muted: #4a5a4d;
+  --color-rule: #d5dbd8;
+  --color-rule-soft: #e9ede9;
+  --color-rule-strong: #aeb9b3;
+  --color-forest: #102222;
+  --color-leaf: #3a828f;
+  --color-mint: #a3b8a8;
+  --color-signal: #3a828f;
+  --color-signal-dark: #2d6b73;
+  --color-alert: #b3261e;
 }
 
 html {
-  background: var(--color-ground);
+  background: var(--color-bg-main);
 }
 
 body {
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   font-family: var(--font-sans);
 }
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-signal);
+  outline: 2px solid var(--color-teal-primary);
   outline-offset: 2px;
 }
 
-.on-green a:focus-visible {
-  outline-color: #FFFFFF;
+.on-teal a:focus-visible {
+  outline-color: #ffffff;
 }
 
 @layer components {
@@ -47,7 +69,7 @@ button:focus-visible {
     font-weight: 500;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--color-muted);
+    color: var(--color-text-secondary);
   }
 
   .p-num {
@@ -55,13 +77,14 @@ button:focus-visible {
     font-variant-numeric: tabular-nums;
   }
 
+  /* Primary Button - Muted Teal with white text */
   .p-btn,
   .p-btn2 {
     box-sizing: border-box;
     min-height: 48px;
-    padding: 0 20px;
+    padding: 0 24px;
     border: 1px solid;
-    border-radius: 2px;
+    border-radius: 1rem;
     font-family: inherit;
     font-size: 16px;
     font-weight: 600;
@@ -71,34 +94,86 @@ button:focus-visible {
     justify-content: center;
     gap: 8px;
     cursor: pointer;
+    transition: all 0.15s ease;
   }
 
   .p-btn {
-    border-color: var(--color-signal);
-    background: var(--color-signal);
-    color: #FFFFFF;
-    transition: background 0.15s ease;
+    background: var(--color-teal-primary);
+    border-color: var(--color-teal-primary);
+    color: #ffffff;
+    box-shadow: none;
   }
 
   .p-btn:hover {
-    border-color: var(--color-signal-dark);
-    background: var(--color-signal-dark);
+    background: var(--color-teal-dark);
+    border-color: var(--color-teal-dark);
+    box-shadow: none;
   }
 
+  .p-btn:active {
+    background: var(--color-teal-dark);
+    transform: scale(0.98);
+    box-shadow: none;
+  }
+
+  /* Secondary Button - Outlined on dark cards */
   .p-btn2 {
-    border-color: var(--color-rule-strong);
+    border-color: var(--color-border-card-strong);
     background: transparent;
-    color: var(--color-ink);
-    transition: border-color 0.15s ease;
+    color: var(--color-text-on-dark-primary);
   }
 
   .p-btn2:hover {
-    border-color: var(--color-ink);
+    border-color: var(--color-teal-primary);
+    background: rgba(58, 130, 143, 0.1);
   }
 
   .p-btn2:disabled {
-    color: var(--color-muted);
+    color: var(--color-text-on-dark-muted);
     cursor: default;
+    border-color: var(--color-border-card);
+  }
+
+  /* Secondary Button on Light Background */
+  .p-btn2-light {
+    border-color: var(--color-rule-strong);
+    background: transparent;
+    color: var(--color-text-primary);
+    box-shadow: 0 1px 2px rgba(15, 44, 51, 0.05);
+  }
+
+  .p-btn2-light:hover {
+    border-color: var(--color-text-primary);
+    box-shadow: 0 2px 4px rgba(15, 44, 51, 0.08);
+  }
+
+  /* Teal Button - for dark backgrounds with teal accent */
+  .p-btn-turquoise {
+    background: transparent;
+    border: 2px solid var(--color-teal-primary);
+    color: var(--color-teal-primary);
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 1rem;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .p-btn-turquoise:hover {
+    background: rgba(58, 130, 143, 0.1);
+  }
+
+  .p-btn-turquoise:active {
+    background: rgba(58, 130, 143, 0.15);
+    transform: scale(0.98);
   }
 
   .p-row {
@@ -106,12 +181,12 @@ button:focus-visible {
   }
 
   .p-row:hover {
-    background: #EEF2F0;
+    background: rgba(58, 130, 143, 0.05);
   }
 
   /* Drawing paper: a fine 16px grid */
   .p-grid {
-    background-color: #FFFFFF;
+    background-color: var(--color-bg-white);
     background-image:
       linear-gradient(var(--color-rule-soft) 1px, transparent 1px),
       linear-gradient(90deg, var(--color-rule-soft) 1px, transparent 1px);
@@ -124,7 +199,7 @@ button:focus-visible {
     z-index: 1;
     width: 18px;
     height: 18px;
-    border: 0 solid var(--color-ink);
+    border: 0 solid var(--color-text-primary);
   }
 
   .p-tick.tl { left: 10px; top: 10px; border-left-width: 1.5px; border-top-width: 1.5px; }
@@ -139,13 +214,13 @@ button:focus-visible {
     margin: auto 0 0;
     padding: 20px 16px 24px;
     border: 0;
-    border-top: 3px solid var(--color-forest);
-    background: var(--color-ground);
-    color: var(--color-ink);
+    border-top: 3px solid var(--color-teal-primary);
+    background: var(--color-bg-card);
+    color: var(--color-text-on-dark-primary);
   }
 
   .p-dialog::backdrop {
-    background: rgba(20, 36, 26, 0.55);
+    background: rgba(16, 34, 34, 0.7);
   }
 
   @media (min-width: 48rem) {
@@ -154,6 +229,202 @@ button:focus-visible {
       margin: 160px auto auto;
       padding: 24px;
     }
+  }
+
+  /* Card utilities */
+  .card-dark {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 3px rgba(16, 34, 34, 0.12), 0 1px 2px rgba(16, 34, 34, 0.08);
+  }
+
+  .card-dark-alt {
+    background: var(--color-bg-card-alt);
+    border: 1px solid var(--color-border-card);
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 3px rgba(16, 34, 34, 0.12), 0 1px 2px rgba(16, 34, 34, 0.08);
+  }
+
+  .card-light {
+    background: var(--color-bg-white);
+    border: 1px solid var(--color-rule);
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 3px rgba(16, 34, 34, 0.08), 0 1px 2px rgba(16, 34, 34, 0.05);
+  }
+
+  /* Header card - for page headers with titles and metric cards */
+  .card-header {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(16, 34, 34, 0.15), 0 2px 6px rgba(16, 34, 34, 0.1);
+    padding: 1.5rem 2rem;
+  }
+
+  @media (min-width: 48rem) {
+    .card-header {
+      padding: 2rem 3rem;
+    }
+  }
+
+  /* Elevated card variant for hero panels and feature cards */
+  .card-elevated {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(16, 34, 34, 0.15), 0 2px 6px rgba(16, 34, 34, 0.1);
+    padding: 1.5rem 2rem;
+  }
+
+  @media (min-width: 48rem) {
+    .card-elevated {
+      padding: 2rem 3rem;
+    }
+  }
+
+  .card-elevated-light {
+    background: var(--color-bg-white);
+    border: 1px solid var(--color-rule);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(16, 34, 34, 0.08), 0 2px 6px rgba(16, 34, 34, 0.05);
+    padding: 1.5rem 2rem;
+  }
+
+  @media (min-width: 48rem) {
+    .card-elevated-light {
+      padding: 2rem 3rem;
+    }
+  }
+
+  /* Content card - for list items, table rows, etc. */
+  .card-content {
+    background: var(--color-bg-white);
+    border: 1px solid var(--color-rule);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  @media (min-width: 48rem) {
+    .card-content {
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  /* Dark content card */
+  .card-content-dark {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-card);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    color: var(--color-text-on-dark-primary);
+  }
+
+  @media (min-width: 48rem) {
+    .card-content-dark {
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  /* View toggle buttons */
+  .view-toggle {
+    display: inline-flex;
+    border: 1px solid var(--color-rule);
+    border-radius: 9999px;
+    background: var(--color-bg-white);
+    overflow: hidden;
+  }
+
+  .view-toggle-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .view-toggle-btn:hover {
+    color: var(--color-text-primary);
+  }
+
+  .view-toggle-btn.active {
+    background: var(--color-bg-card);
+    color: var(--color-text-on-dark-primary);
+  }
+
+  /* Dark variant for view toggle */
+  .view-toggle-dark {
+    border-color: var(--color-border-card-strong);
+    background: var(--color-bg-card-alt);
+  }
+
+  .view-toggle-dark .view-toggle-btn {
+    color: var(--color-text-on-dark-muted);
+  }
+
+  .view-toggle-dark .view-toggle-btn:hover {
+    color: var(--color-text-on-dark-primary);
+  }
+
+  .view-toggle-dark .view-toggle-btn.active {
+    background: var(--color-teal-primary);
+    color: var(--color-bg-card);
+  }
+
+  /* Text utilities for dark cards */
+  .text-on-dark-primary {
+    color: var(--color-text-on-dark-primary);
+  }
+
+  .text-on-dark-secondary {
+    color: var(--color-text-on-dark-secondary);
+  }
+
+  .text-on-dark-muted {
+    color: var(--color-text-on-dark-muted);
+  }
+
+  /* Icon utilities for dark cards */
+  .icon-on-dark {
+    color: var(--color-teal-primary);
+  }
+
+  .icon-on-dark-muted {
+    color: var(--color-teal-muted);
+  }
+
+  /* Badge variants - Professional, no neon */
+  .badge-teal {
+    background: rgba(58, 130, 143, 0.12);
+    border: 1px solid var(--color-teal-primary);
+    color: var(--color-teal-primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .badge-teal-dark {
+    background: var(--color-teal-primary);
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* Step badge */
+  .step-badge {
+    background: var(--color-teal-primary);
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
   }
 }
 
@@ -178,12 +449,26 @@ button:focus-visible {
   50% { opacity: 0.35; }
 }
 
+@keyframes p-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.p-spin {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--color-border-card);
+  border-top-color: var(--color-teal-primary);
+  border-radius: 50%;
+  animation: p-spin 0.8s linear infinite;
+}
+
 .p-in { animation: p-in 0.35s ease both; }
 .p-in.d1 { animation-delay: 0.08s; }
 .p-in.d2 { animation-delay: 0.16s; }
 .p-in.d3 { animation-delay: 0.24s; }
 .p-grow { transform-origin: left center; animation: p-grow 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.p-sweep { position: absolute; left: 0; right: 0; height: 1px; background: var(--color-signal); animation: p-sweep 1.6s linear infinite alternate; }
+.p-sweep { position: absolute; left: 0; right: 0; height: 1px; background: var(--color-teal-primary); animation: p-sweep 1.6s linear infinite alternate; }
 .p-run { animation: p-blink 1s ease-in-out infinite; }
 .p-bar { transition: width 0.5s ease; }
 
@@ -191,4 +476,9 @@ button:focus-visible {
   .p-in, .p-grow, .p-sweep, .p-run { animation: none; }
   .p-sweep { display: none; }
   .p-bar, .p-row, .p-btn, .p-btn2 { transition: none; }
+}
+
+/* Ambient background animation - removed neon breathing */
+.ambient-bg {
+  background: var(--color-bg-main);
 }

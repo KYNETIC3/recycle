@@ -117,23 +117,26 @@ export function AssessmentFlow() {
   const percent = Math.round((done / ASSESSMENT_STEPS.length) * 100);
 
   return (
-    <div className="pb-24 md:px-10 md:pt-8 md:pb-10">
-      <header className="flex h-[52px] items-center justify-between border-b border-rule px-4 md:hidden">
-        <h1 className="text-[17px] font-semibold">New assessment</h1>
-        <Link href="/" className="flex min-h-11 items-center text-[15px] font-medium text-signal">
+    <div className="p-8 md:p-10 pb-24 md:pb-10">
+      <header className="flex h-[52px] items-center justify-between border-b border-[#D5DBD8] md:hidden">
+        <h1 className="text-lg font-semibold text-[#15261F]">New assessment</h1>
+        <Link href="/" className="flex min-h-11 items-center text-sm font-medium text-[#81D8D0]">
           Cancel
         </Link>
       </header>
 
       <header className="mb-6 hidden flex-col gap-1.5 md:flex">
         <span className="p-label">Step 02 of 03</span>
-        <p className="text-4xl leading-[42px] font-semibold tracking-[-0.7px]">New assessment</p>
+        <p className="text-2xl md:text-3xl font-bold text-[#15261F]">New assessment</p>
       </header>
 
       <main className="grid items-stretch md:grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] md:gap-8">
         <div>
+          {/* Photo Dropzone */}
           <div
-            className={`p-grid relative flex h-[340px] items-center justify-center overflow-hidden border-b md:min-h-[34rem] md:border ${dragging ? "border-signal" : "border-rule"}`}
+            className={`p-grid relative flex h-[340px] md:min-h-[34rem] items-center justify-center overflow-hidden border border-[#1B434C] rounded-2xl ${
+              dragging ? "border-[#81D8D0]" : ""
+            }`}
             onDragOver={(e) => {
               e.preventDefault();
               if (phase === "idle") setDragging(true);
@@ -152,26 +155,26 @@ export function AssessmentFlow() {
             <span className="p-tick bh" />
 
             {cameraOn ? (
-              <video ref={video} autoPlay playsInline muted aria-label="Camera preview" className="absolute inset-0 size-full object-cover" />
+              <video ref={video} autoPlay playsInline muted aria-label="Camera preview" className="absolute inset-0 size-full object-cover rounded-2xl" />
             ) : source?.kind === "photo" ? (
-              <Image src={source.url} alt="Your device photo" fill unoptimized className="object-contain p-6" />
+              <Image src={source.url} alt="Your device photo" fill unoptimized className="object-contain p-6 rounded-2xl" />
             ) : source?.kind === "sample" ? (
               <>
                 <div className="w-[260px] max-w-[80%] md:w-[340px]">
                   <DeviceDrawing device={source.sample} />
                 </div>
-                <span className="p-label absolute bottom-3 left-[34px] bg-white px-1">Sample: {SAMPLES[source.sample].name}</span>
+                <span className="p-label absolute bottom-3 left-[34px] bg-white/90 backdrop-blur-sm px-2 rounded-lg text-[#15261F]">Sample: {SAMPLES[source.sample].name}</span>
               </>
             ) : (
-              <div className="flex w-full max-w-[280px] flex-col gap-2 px-4 text-center">
-                <p className="mb-2 bg-white text-[17px] leading-6 font-semibold">Add a device photo</p>
-                <button type="button" className="p-btn" onClick={() => fileInput.current?.click()}>
+              <div className="flex w-full max-w-[280px] flex-col gap-3 px-4 text-center">
+                <p className="mb-1 bg-white/90 backdrop-blur-sm text-base font-semibold text-[#15261F] rounded-lg py-2 px-4">Add a device photo</p>
+                <button type="button" className="p-btn">
                   Choose photo
                 </button>
-                <button type="button" className="p-btn2 bg-white" onClick={startCamera}>
+                <button type="button" className="p-btn2-light">
                   Use camera
                 </button>
-                <p className="mt-2 bg-white text-sm leading-5 text-muted">Or drop an image here. Up to 10 MB.</p>
+                <p className="text-sm text-[#4A5A4D]">Or drop an image here. Up to 10 MB.</p>
               </div>
             )}
 
@@ -193,105 +196,135 @@ export function AssessmentFlow() {
           />
 
           {error && (
-            <p role="alert" className="px-4 pt-3 text-[15px] leading-[22px] font-medium text-alert md:px-0">
+            <p role="alert" className="mt-4 px-4 text-sm font-medium text-[#B3261E] md:px-0">
               {error}
             </p>
           )}
         </div>
 
-        {source ? (
-          <section aria-label="Assessment progress" className="flex flex-col gap-4 p-4 md:p-0">
-            <div>
-              <div className="mb-2 flex items-center justify-between">
-                <h2 className="p-label">Assessment log</h2>
-                <span role="status" className="p-num text-[13px] font-medium md:text-sm">
-                  {percent}%
-                </span>
+        <div className="space-y-6">
+          {source ? (
+            <section aria-label="Assessment progress" className="card-elevated">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-white">Assessment log</h2>
+                <span role="status" className="p-num text-sm font-medium text-white">{percent}%</span>
               </div>
-              <div aria-hidden="true" className="h-[3px] bg-rule">
-                <div className="p-bar h-[3px] bg-signal" style={{ width: `${percent}%` }} />
+              <div aria-hidden="true" className="h-[6px] bg-[#1B434C] rounded-full overflow-hidden mb-4">
+                <div className="p-bar h-[6px] bg-[#81D8D0] rounded-full" style={{ width: `${percent}%` }} />
               </div>
-              <ol>
+              <ol className="space-y-2">
                 {ASSESSMENT_STEPS.map((label, i) => {
                   const running = phase === "running" && i === step;
                   const finished = i < done;
                   return (
-                    <li key={label} className="flex min-h-11 items-center gap-3 border-b border-rule-soft text-[15px] md:min-h-[52px] md:gap-3.5 md:text-base">
-                      <span className="p-num text-xs text-muted">0{i + 1}</span>
-                      <span className={`min-w-0 flex-1 ${running ? "font-semibold" : ""}`}>{label}</span>
-                      <span className={`p-num text-xs font-medium md:text-[13px] ${finished ? "text-forest" : running ? "p-run text-signal" : "text-muted"}`}>
+                    <li key={label} className="card-content-dark flex items-center gap-3">
+                      <span className="p-num text-xs text-[#A3B8A8] shrink-0">0{i + 1}</span>
+                      <span className={`flex-1 ${running ? "font-semibold text-white" : "text-white"}`}>{label}</span>
+                      <span className={`p-num text-xs font-medium shrink-0 ${
+                        finished ? "text-[#81D8D0]" : running ? "p-run text-[#81D8D0]" : "text-[#A3B8A8]"
+                      }`}>
                         {finished ? "Done" : running ? "Running" : "Queued"}
                       </span>
                     </li>
                   );
                 })}
               </ol>
-            </div>
-            {source.kind === "photo" && (
-              <p className="text-[15px] leading-[22px] text-muted">Photo analysis is not connected yet, so this run ends with a sample result.</p>
-            )}
-          </section>
-        ) : (
-          !cameraOn && (
-            <section className="p-4 md:p-0">
-              <h2 className="p-label mb-2">Or try a sample device</h2>
-              <div className="border-t border-rule">
-                {SAMPLE_KEYS.map((key) => (
-                  <button
-                    key={key}
-                    type="button"
-                    className="p-row flex min-h-[60px] w-full cursor-pointer items-center justify-between gap-3 border-b border-rule py-2 text-left"
-                    onClick={() => {
-                      setError(null);
-                      setSource({ kind: "sample", sample: key });
-                    }}
-                  >
-                    <span className="flex min-w-0 flex-col">
-                      <span className="text-base leading-[22px] font-medium">{SAMPLES[key].name}</span>
-                      <span className="text-sm leading-[19px] text-muted">{SAMPLES[key].condition}</span>
-                    </span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F5B53" strokeWidth="1.8" aria-hidden="true">
-                      <path d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                ))}
-              </div>
-              <p className="mt-4 text-[15px] leading-[22px] text-muted">Check that the whole device is in view, including any damage.</p>
+              {source.kind === "photo" && (
+                <p className="mt-4 text-sm text-[#A3B8A8]">Photo analysis is not connected yet, so this run ends with a sample result.</p>
+              )}
             </section>
-          )
-        )}
+          ) : (
+            !cameraOn && (
+              <section className="card-elevated">
+                <h2 className="text-lg font-semibold text-white mb-4">Or try a sample device</h2>
+                <div className="space-y-2">
+                  {SAMPLE_KEYS.map((key) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className="card-content-dark w-full flex items-center justify-between gap-3 text-left"
+                      onClick={() => {
+                        setError(null);
+                        setSource({ kind: "sample", sample: key });
+                      }}
+                    >
+                      <div className="flex-1 min-w-0">
+                        <span className="text-base font-medium text-white block truncate">{SAMPLES[key].name}</span>
+                        <span className="text-sm text-[#A3B8A8]">{SAMPLES[key].condition}</span>
+                      </div>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A3B8A8" strokeWidth="1.8" aria-hidden="true">
+                        <path d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-4 text-sm text-[#A3B8A8]">Check that the whole device is in view, including any damage.</p>
+              </section>
+            )
+          )}
 
-        {(source || cameraOn) && (
-          <div className="fixed inset-x-0 bottom-0 z-10 flex gap-2 border-t border-rule bg-ground px-4 pt-3 pb-5 md:static md:col-span-full md:justify-end md:border-t-0 md:bg-transparent md:p-0">
+          {/* Bottom Action Bar - Mobile */}
+          <div className="md:hidden fixed bottom-0 left-0 right-0 border-t border-[#1B434C] bg-[#EAE6DF] p-4">
             {cameraOn ? (
-              <>
-                <button type="button" className="p-btn2 min-h-[52px] flex-1 md:flex-none" onClick={stopCamera}>
+              <div className="flex gap-3">
+                <button type="button" className="p-btn2-light min-h-[48px] flex-1" onClick={stopCamera}>
                   Cancel
                 </button>
-                <button type="button" className="p-btn min-h-[52px] flex-[2] md:flex-none" onClick={capture}>
+                <button type="button" className="p-btn min-h-[48px] flex-[2]" onClick={capture}>
                   Take photo
                 </button>
-              </>
+              </div>
             ) : phase === "idle" ? (
-              <>
-                <button type="button" className="p-btn2 min-h-[52px] flex-1 md:flex-none" onClick={reset}>
+              <div className="flex gap-3">
+                <button type="button" className="p-btn2-light min-h-[48px] flex-1" onClick={reset}>
                   {source?.kind === "photo" ? "Replace photo" : "Change device"}
                 </button>
-                <button type="button" className="p-btn min-h-[52px] flex-[2] md:flex-none" onClick={startAssessment}>
+                <button type="button" className="p-btn min-h-[48px] flex-[2]" onClick={startAssessment}>
                   Run assessment
                 </button>
-              </>
+              </div>
             ) : phase === "running" ? (
-              <button type="button" disabled className="p-btn2 min-h-[52px] flex-1 md:flex-none">
+              <button type="button" disabled className="p-btn2-light min-h-[48px] w-full">
                 Assessing…
               </button>
             ) : (
-              <Link href={`/result/${result}`} className="p-btn min-h-[52px] flex-1 md:flex-none">
+              <Link href={`/result/${result}`} className="p-btn min-h-[48px] w-full">
                 View result
               </Link>
             )}
           </div>
-        )}
+        </div>
+
+        {/* Bottom Action Bar - Desktop */}
+        <div className="hidden md:static md:col-span-full flex justify-end gap-3 pt-4">
+          {cameraOn ? (
+            <>
+              <button type="button" className="p-btn2-light min-h-[48px] md:w-36" onClick={stopCamera}>
+                Cancel
+              </button>
+              <button type="button" className="p-btn min-h-[48px] md:w-40" onClick={capture}>
+                Take photo
+              </button>
+            </>
+          ) : phase === "idle" ? (
+            <>
+              <button type="button" className="p-btn2-light min-h-[48px] md:w-40" onClick={reset}>
+                {source?.kind === "photo" ? "Replace photo" : "Change device"}
+              </button>
+              <button type="button" className="p-btn min-h-[48px] md:w-44" onClick={startAssessment}>
+                Run assessment
+              </button>
+            </>
+          ) : phase === "running" ? (
+            <button type="button" disabled className="p-btn2-light min-h-[48px] md:w-40">
+              Assessing…
+            </button>
+          ) : (
+            <Link href={`/result/${result}`} className="p-btn min-h-[48px] md:w-44">
+              View result
+            </Link>
+          )}
+        </div>
       </main>
     </div>
   );

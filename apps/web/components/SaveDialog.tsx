@@ -33,10 +33,10 @@ export function SaveDialog({ ref, sampleKey }: { ref: RefObject<HTMLDialogElemen
       }}
     >
       <div className="flex flex-col gap-2.5">
-        <h2 id="save-title" className="text-2xl leading-[30px] font-semibold tracking-[-0.3px] md:text-[26px] md:leading-8">
+        <h2 id="save-title" className="text-2xl leading-[30px] font-semibold tracking-[-0.3px] md:text-[26px] md:leading-8 text-white">
           Save this assessment
         </h2>
-        <p className="mb-1.5 text-[15px] leading-[22px] text-muted md:text-base md:leading-[23px]">
+        <p className="mb-1.5 text-[15px] leading-[22px] text-[#F4F1EA] md:text-base md:leading-[23px]">
           It stays in this browser for now. Accounts are not connected yet, so no account is created.
         </p>
         {PROVIDERS.map((provider) => (
@@ -48,11 +48,11 @@ export function SaveDialog({ ref, sampleKey }: { ref: RefObject<HTMLDialogElemen
           Continue with email
         </button>
         {failed && (
-          <p role="alert" className="text-[15px] leading-[22px] font-medium text-alert">
+          <p role="alert" className="text-[15px] leading-[22px] font-medium text-[var(--color-alert)]">
             This browser blocked saving. Check that site storage is allowed, then try again.
           </p>
         )}
-        <button type="button" className="flex min-h-11 cursor-pointer items-center justify-center text-[15px] font-medium text-signal" onClick={close}>
+        <button type="button" className="flex min-h-11 cursor-pointer items-center justify-center text-[15px] font-medium text-[#81D8D0]" onClick={close}>
           Not now
         </button>
       </div>

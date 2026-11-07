@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1B5E20",
+  themeColor: "#0F2C33",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -54,7 +54,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${plexSans.variable} ${plexMono.variable} antialiased`}>
-      <body className="min-h-dvh bg-ground">
+      <body className="min-h-dvh bg-[#EAE6DF]">
         <div className="min-h-dvh md:flex">
           <SideNav />
           <div className="min-w-0 flex-1">{children}</div>
